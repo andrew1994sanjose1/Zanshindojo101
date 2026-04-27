@@ -1,10 +1,12 @@
 import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
-import { getFirestore, collection, doc, getDocFromServer } from 'firebase/firestore';
+import { initializeFirestore, collection, doc, getDocFromServer } from 'firebase/firestore';
 import firebaseConfig from '../../firebase-applet-config.json';
 
 const app = initializeApp(firebaseConfig);
-export const db = getFirestore(app, firebaseConfig.firestoreDatabaseId);
+export const db = initializeFirestore(app, {
+  experimentalForceLongPolling: true,
+}, firebaseConfig.firestoreDatabaseId);
 export const auth = getAuth(app);
 
 enum OperationType {
@@ -49,8 +51,15 @@ async function testConnection() {
     await getDocFromServer(doc(db, 'test', 'connection'));
     console.log("Firebase connected successfully");
   } catch (error) {
-    if(error instanceof Error && error.message.includes('the client is offline')) {
-      console.error("Please check your Firebase configuration.");
+    console.error("Firebase Connection Error Type:", typeof error);
+    console.error("Firebase Connection Error Message:", error instanceof Error ? error.message : String(error));
+    
+    if (error instanceof Error && (
+      error.message.includes('the client is offline') || 
+      error.message.includes('Could not reach Cloud Firestore backend') ||
+      error.message.includes('deadline-exceeded')
+    )) {
+      console.error("CRITICAL: Firebase is unreachable. Please verify that Firestore is provisioned and the Database ID exists.");
     }
   }
 }
