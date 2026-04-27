@@ -25,10 +25,10 @@ export function Navbar() {
       {/* Desktop Nav */}
       <div className="hidden md:flex items-center gap-8 text-sm font-semibold text-slate-500 uppercase tracking-widest">
         <Link to="/" className="hover:text-rose-600 transition-colors">Home</Link>
+        <Link to="/trials" className="hover:text-rose-600 transition-colors text-rose-600">Trials</Link>
         {user ? (
           <>
             <Link to="/dashboard" className="hover:text-rose-600 transition-colors">Portal</Link>
-            <Link to="/tutorials" className="hover:text-rose-600 transition-colors">Curriculum</Link>
             {(userData?.role === 'staff' || userData?.role === 'admin') && (
               <Link to="/admin" className="text-slate-900 hover:text-rose-600">Admin</Link>
             )}
@@ -59,10 +59,10 @@ export function Navbar() {
             className="absolute top-20 left-0 right-0 bg-white border-b border-slate-100 p-6 flex flex-col gap-6 md:hidden shadow-xl"
           >
             <Link to="/" onClick={() => setIsOpen(false)} className="text-sm font-bold uppercase tracking-widest text-slate-600 hover:text-rose-600">Home</Link>
+            <Link to="/trials" onClick={() => setIsOpen(false)} className="text-sm font-bold uppercase tracking-widest text-rose-600">Trials</Link>
             {user ? (
               <>
                 <Link to="/dashboard" onClick={() => setIsOpen(false)} className="text-sm font-bold uppercase tracking-widest text-slate-600 hover:text-rose-600">Portal</Link>
-                <Link to="/tutorials" onClick={() => setIsOpen(false)} className="text-sm font-bold uppercase tracking-widest text-slate-600 hover:text-rose-600">Curriculum</Link>
                 <button onClick={() => { logout(); setIsOpen(false); }} className="text-sm font-bold text-left uppercase tracking-widest text-slate-600 hover:text-rose-600">Sign Out</button>
               </>
             ) : (

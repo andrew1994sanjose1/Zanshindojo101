@@ -9,7 +9,7 @@ import { LandingPage } from './pages/LandingPage';
 import { MemberDashboard } from './pages/MemberDashboard';
 import { AdminDashboard } from './pages/AdminDashboard';
 import { InstructorDashboard } from './pages/InstructorDashboard';
-import { TutorialsPage } from './pages/TutorialsPage';
+import { TrialsPage } from './pages/TrialsPage';
 
 interface AuthContextType {
   user: User | null;
@@ -89,12 +89,12 @@ export default function App() {
           <Routes>
             <Route path="/" element={<LandingPage />} />
             <Route 
-              path="/dashboard" 
-              element={user ? <MemberDashboard /> : <Navigate to="/" />} 
+              path="/trials" 
+              element={<TrialsPage />} 
             />
             <Route 
-              path="/tutorials" 
-              element={user ? <TutorialsPage /> : <Navigate to="/" />} 
+              path="/dashboard" 
+              element={user ? <MemberDashboard /> : <Navigate to="/" />} 
             />
             <Route 
               path="/instructor" 

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import React from 'react';
 import { useAuth } from '../App';
-import { Users, ShoppingBag, Calendar, Mail, Check, X, Shield, Plus, MoreVertical, Edit2, Trash2, Clock } from 'lucide-react';
+import { Users, ShoppingBag, Calendar, Mail, Check, X, Shield, Plus, MoreVertical, Edit2, Trash2, Clock, CreditCard } from 'lucide-react';
 import { collection, getDocs, query, orderBy, doc, updateDoc, deleteDoc, addDoc } from 'firebase/firestore';
 import { db } from '../lib/firebase';
 import { DojoTrial, DojoUser, DojoClass } from '../types';
@@ -393,6 +393,17 @@ function ProductItem({ name, price, category, stock, img }: { name: string, pric
           <div className="flex justify-between items-center mt-6">
              <span className="text-[10px] text-slate-400 font-bold uppercase">Stock: {stock} units</span>
              <div className="flex gap-2">
+                <button 
+                  onClick={() => {
+                    const link = `${window.location.origin}/dashboard?checkout=${name.toLowerCase().replace(/ /g, '-')}`;
+                    navigator.clipboard.writeText(link);
+                    alert('Payment link copied to clipboard!');
+                  }}
+                  className="p-2 bg-rose-600 text-white hover:bg-rose-700 rounded-lg transition-colors shadow-sm"
+                  title="Copy payment link"
+                >
+                  <CreditCard size={12} />
+                </button>
                 <button className="p-2 bg-white text-slate-400 hover:text-rose-600 rounded-lg transition-colors border border-slate-100"><Edit2 size={12} /></button>
                 <button className="p-2 bg-white text-rose-500 hover:bg-rose-50 rounded-lg transition-colors border border-slate-100"><Trash2 size={12} /></button>
              </div>
