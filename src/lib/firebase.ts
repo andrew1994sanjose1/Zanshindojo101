@@ -1,13 +1,27 @@
 import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
-import { initializeFirestore, collection, doc, getDocFromServer } from 'firebase/firestore';
-import firebaseConfig from '../../firebase-applet-config.json';
+import { initializeFirestore, doc, getDocFromServer } from 'firebase/firestore';
+
+// Gagamit tayo ng environment variables mula sa Render/Vite
+const firebaseConfig = {
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  // Dito natin i-ha-hardcode para sigurado ang domain
+  authDomain: "zanshindojo101.firebaseapp.com", 
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID
+};
 
 const app = initializeApp(firebaseConfig);
+
 export const db = initializeFirestore(app, {
   experimentalForceLongPolling: true,
-}, firebaseConfig.firestoreDatabaseId);
+});
+
 export const auth = getAuth(app);
+
+// --- Panatilihin natin yung mga functions mo sa baba ---
 
 enum OperationType {
   CREATE = 'create',
@@ -51,16 +65,7 @@ async function testConnection() {
     await getDocFromServer(doc(db, 'test', 'connection'));
     console.log("Firebase connected successfully");
   } catch (error) {
-    console.error("Firebase Connection Error Type:", typeof error);
     console.error("Firebase Connection Error Message:", error instanceof Error ? error.message : String(error));
-    
-    if (error instanceof Error && (
-      error.message.includes('the client is offline') || 
-      error.message.includes('Could not reach Cloud Firestore backend') ||
-      error.message.includes('deadline-exceeded')
-    )) {
-      console.error("CRITICAL: Firebase is unreachable. Please verify that Firestore is provisioned and the Database ID exists.");
-    }
   }
 }
 
