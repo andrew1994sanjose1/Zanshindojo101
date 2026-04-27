@@ -1,0 +1,112 @@
+import { useState, useEffect, createContext, useContext } from 'react';
+import { BrowserRouter as Router, Routes, Route, Link, Navigate } from 'react-router-dom';
+import { onAuthStateChanged, User, signInWithPopup, GoogleAuthProvider, signOut } from 'firebase/auth';
+import { doc, getDoc, setDoc } from 'firebase/firestore';
+import { auth, db } from './lib/firebase';
+import { DojoUser, UserRole } from './types';
+import { Navbar } from './components/layout/Navbar';
+import { LandingPage } from './pages/LandingPage';
+import { MemberDashboard } from './pages/MemberDashboard';
+import { AdminDashboard } from './pages/AdminDashboard';
+import { InstructorDashboard } from './pages/InstructorDashboard';
+import { TutorialsPage } from './pages/TutorialsPage';
+
+interface AuthContextType {
+  user: User | null;
+  userData: DojoUser | null;
+  loading: boolean;
+  signIn: () => Promise<void>;
+  logout: () => Promise<void>;
+}
+
+const AuthContext = createContext<AuthContextType>({
+  user: null,
+  userData: null,
+  loading: true,
+  signIn: async () => {},
+  logout: async () => {},
+});
+
+export const useAuth = () => useContext(AuthContext);
+
+export default function App() {
+  const [user, setUser] = useState<User | null>(null);
+  const [userData, setUserData] = useState<DojoUser | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      setUser(user);
+      if (user) {
+        const userRef = doc(db, 'users', user.uid);
+        const userSnap = await getDoc(userRef);
+        
+        if (userSnap.exists()) {
+          setUserData(userSnap.data() as DojoUser);
+        } else {
+          // Create new user profile
+          const newData: DojoUser = {
+            uid: user.uid,
+            email: user.email || '',
+            displayName: user.displayName || '',
+            role: 'member',
+            joinedAt: new Date().toISOString(),
+          };
+          await setDoc(userRef, newData);
+          setUserData(newData);
+        }
+      } else {
+        setUserData(null);
+      }
+      setLoading(false);
+    });
+
+    return () => unsubscribe();
+  }, []);
+
+  const signIn = async () => {
+    const provider = new GoogleAuthProvider();
+    await signInWithPopup(auth, provider);
+  };
+
+  const logout = async () => {
+    await signOut(auth);
+  };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-slate-50 text-slate-900 font-mono">
+        <div className="animate-pulse tracking-widest text-2xl font-black text-rose-600">LOADING DOJO...</div>
+      </div>
+    );
+  }
+
+  return (
+    <AuthContext.Provider value={{ user, userData, loading, signIn, logout }}>
+      <Router>
+        <div className="min-h-screen bg-slate-50 text-slate-900 selection:bg-rose-600 selection:text-white">
+          <Navbar />
+          <Routes>
+            <Route path="/" element={<LandingPage />} />
+            <Route 
+              path="/dashboard" 
+              element={user ? <MemberDashboard /> : <Navigate to="/" />} 
+            />
+            <Route 
+              path="/tutorials" 
+              element={user ? <TutorialsPage /> : <Navigate to="/" />} 
+            />
+            <Route 
+              path="/instructor" 
+              element={userData?.role === 'instructor' || userData?.role === 'admin' ? <InstructorDashboard /> : <Navigate to="/" />} 
+            />
+            <Route 
+              path="/admin" 
+              element={userData?.role === 'staff' || userData?.role === 'admin' ? <AdminDashboard /> : <Navigate to="/" />} 
+            />
+          </Routes>
+        </div>
+      </Router>
+    </AuthContext.Provider>
+  );
+}

@@ -1,0 +1,109 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "User profile information",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "email": { "type": "string" },
+        "displayName": { "type": "string" },
+        "role": { "type": "string", "enum": ["visitor", "member", "instructor", "staff", "admin"] },
+        "bio": { "type": "string" },
+        "rank": { "type": "string" },
+        "joinedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "email", "role"]
+    },
+    "Trial": {
+      "title": "Trial Request",
+      "description": "Requests for trial classes",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "email": { "type": "string" },
+        "phone": { "type": "string" },
+        "preferredDate": { "type": "string", "format": "date-time" },
+        "status": { "type": "string", "enum": ["pending", "confirmed", "completed"] }
+      },
+      "required": ["name", "email", "preferredDate"]
+    },
+    "Class": {
+      "title": "Dojo Class",
+      "description": "Schedule events",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" },
+        "instructorId": { "type": "string" },
+        "dayOfWeek": { "type": "string" },
+        "startTime": { "type": "string" },
+        "endTime": { "type": "string" },
+        "capacity": { "type": "number" }
+      },
+      "required": ["title", "instructorId", "dayOfWeek", "startTime"]
+    },
+    "Tutorial": {
+      "title": "Tutorial",
+      "description": "Learning content",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "videoUrl": { "type": "string" },
+        "category": { "type": "string" },
+        "level": { "type": "string" },
+        "xpReward": { "type": "number" }
+      },
+      "required": ["title", "videoUrl"]
+    },
+    "Progress": {
+      "title": "User Progress",
+      "description": "Tracking user learning",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "completedTutorials": { "type": "array" },
+        "totalXP": { "type": "number" }
+      },
+      "required": ["userId"]
+    },
+    "Order": {
+      "title": "Shop Order",
+      "description": "Equipment orders",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "productName": { "type": "string" },
+        "status": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "productName"]
+    }
+  },
+  "firestore": {
+    "users": {
+      "schema": "User",
+      "description": "Collection of all user profiles"
+    },
+    "trials": {
+      "schema": "Trial",
+      "description": "Collection of trial class requests"
+    },
+    "classes": {
+      "schema": "Class",
+      "description": "Collection of scheduled classes"
+    },
+    "tutorials": {
+      "schema": "Tutorial",
+      "description": "Collection of instructional videos"
+    },
+    "progress": {
+      "schema": "Progress",
+      "description": "Tracking user progress records"
+    },
+    "orders": {
+      "schema": "Order",
+      "description": "Collection of store orders"
+    }
+  }
+}

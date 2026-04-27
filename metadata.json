@@ -1,0 +1,6 @@
+{
+  "name": "Zenith Dojo",
+  "description": "A comprehensive Karate learning platform with video tutorials, practice exercises, and administrative portals for instructors and staff.",
+  "requestFramePermissions": ["camera"],
+  "majorCapabilities": ["auth", "database", "video"]
+}

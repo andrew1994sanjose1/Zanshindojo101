@@ -1,0 +1,60 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Global Safety Net
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // --- Helpers ---
+    function isSignedIn() { return request.auth != null; }
+    function isOwner(userId) { return isSignedIn() && request.auth.uid == userId; }
+    function getUserRole() { return get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role; }
+    function hasRole(roles) { return isSignedIn() && getUserRole() in roles; }
+    function isAdmin() { return hasRole(['admin', 'staff']); }
+    function isInstructor() { return hasRole(['admin', 'instructor']); }
+    function isValidId(id) { return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$'); }
+
+    // --- Collections ---
+
+    match /users/{userId} {
+      allow get: if isSignedIn();
+      allow list: if isAdmin();
+      allow create: if isOwner(userId) && request.resource.data.role == 'member';
+      allow update: if isOwner(userId) && request.resource.data.role == resource.data.role; // Prevent self-promoting
+      allow write: if isAdmin();
+    }
+
+    match /trials/{trialId} {
+      allow create: if true; // Public trial requests
+      allow read, write: if isAdmin();
+    }
+
+    match /classes/{classId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    match /tutorials/{tutorialId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    match /progress/{userId} {
+      allow read: if isOwner(userId) || isAdmin();
+      allow create: if isOwner(userId);
+      allow update: if isOwner(userId); // XP collection is client-side for demo, but in production should be cloud functions
+    }
+
+    match /attendance/{logId} {
+      allow read: if isAdmin() || isInstructor();
+      allow create: if isInstructor();
+    }
+
+    match /orders/{orderId} {
+      allow read: if isOwner(request.resource.data.userId) || isAdmin();
+      allow create: if isSignedIn();
+    }
+  }
+}
