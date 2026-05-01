@@ -44,7 +44,6 @@ export function MemberDashboard() {
  const handlePayment = async () => {
     setIsPaying(true);
     try {
-      // Tinatawag natin ang sarili mong backend para iwas CORS error
       const response = await fetch('/api/create-checkout-session', {
         method: 'POST',
         headers: {
@@ -57,22 +56,14 @@ export function MemberDashboard() {
       if (result.data?.attributes?.checkout_url) {
         window.location.href = result.data.attributes.checkout_url;
       } else {
-        console.error("PayMongo Error:", result);
         alert("May problema sa payment session. Paki-check ang backend logs.");
       }
     } catch (err) {
-      console.error("Frontend Fetch Error:", err);
       alert("Hindi maka-connect sa server: " + err);
     } finally {
       setIsPaying(false);
     }
-  };
-    }
-  };
-  return (
-    <div className="pt-24 pb-12 px-6 md:px-12 max-w-7xl mx-auto min-h-screen bg-slate-50">
-      {paymentStatus === 'success' && (
-        <motion.div 
+  }; // Dito lang dapat magtatapos ang handlePayment function
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           className="mb-8 p-4 bg-emerald-50 border border-emerald-100 rounded-2xl flex items-center gap-3 text-emerald-700 font-bold"
