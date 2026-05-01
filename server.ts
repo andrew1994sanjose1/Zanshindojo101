@@ -22,14 +22,13 @@ async function startServer() {
     // PayMongo Checkout Session Route
   app.post('/api/create-checkout-session', async (req, res) => {
     try {
-      // Mas safe na format para sa Authorization
-      const secretKey = 'sk_test_PYGoLvTtaMmAQtvf1htbPEua'; // Siguraduhin na tama ito
-      const authHeader = `Basic ${Buffer.from(secretKey + ':').toString('base64')}`;
+      // Direkta nating i-hardcode ang base64 para wala nang computation error
+      // Ito ay base64 ng 'sk_test_PYGoLvTtaMmAQtvf1htbPEua:'
+      const authHeader = 'Basic c2tfdGVzdF9QWUdvTHZUdGFNbUFRdHZmMWh0YlBFdWE6';
 
-      const options = {
+      const response = await fetch('https://api.paymongo.com/v1/checkout_sessions', {
         method: 'POST',
         headers: {
-          'Accept': 'application/json',
           'Content-Type': 'application/json',
           'Authorization': authHeader
         },
@@ -38,10 +37,10 @@ async function startServer() {
             attributes: {
               show_description: true,
               show_line_items: true,
-              description: 'Zanshin Dojo Membership Fee',
+              description: 'Zanshin Dojo Fee',
               line_items: [
                 {
-                  amount: 150000, // ₱1,500.00
+                  amount: 150000,
                   currency: 'PHP',
                   name: 'Monthly Membership',
                   quantity: 1
@@ -53,22 +52,19 @@ async function startServer() {
             }
           }
         })
-      };
+      });
 
-      const response = await fetch('https://api.paymongo.com/v1/checkout_sessions', options);
       const result = await response.json();
-
-      // I-log natin sa Render para makita natin kung anong sabi ni PayMongo
-      console.log("PayMongo Response:", JSON.stringify(result));
+      console.log("PAYMONGO_DEBUG:", result); // Lalabas ito sa Render logs
 
       if (result.errors) {
-        return res.status(400).json(result);
+        return res.status(400).json({ error: "PayMongo Error", details: result.errors });
       }
 
       res.json(result);
     } catch (error) {
-      console.error("PayMongo Backend Error:", error);
-      res.status(500).json({ error: "Internal Server Error", details: error.message });
+      console.error("BACKEND_CRASH:", error);
+      res.status(500).json({ error: "Server error", message: error.message });
     }
   });
     // Static files at SPA routing
