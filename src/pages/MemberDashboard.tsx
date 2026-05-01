@@ -71,7 +71,7 @@ export function MemberDashboard() {
           <CheckCircle2 size={20} />
           Payment successful! Your membership has been updated.
         </motion.div>
-      )}
+    
 
       <div className="flex flex-col md:flex-row gap-8 items-start">
         
