@@ -194,9 +194,14 @@ const response = await fetch('https://zanshindojo101.onrender.com/api/create-che
                 <h3 className="text-3xl font-black text-white uppercase mb-2 tracking-tighter">Pro Equipment</h3>
                 <p className="text-slate-400 text-sm font-medium">Get certified gi and sparring gear from our world-wide store.</p>
              </div>
-             <button className="relative z-10 bg-rose-600 text-white px-10 py-4 rounded-2xl font-black uppercase tracking-widest hover:bg-rose-700 hover:scale-105 transition-all text-xs shadow-xl shadow-rose-900/40 cursor-pointer">
-               Explore Shop
-             </button>
+             <a 
+  href="https://www.woosungglobal.com/products/56.html" 
+  target="_blank" 
+  rel="noopener noreferrer"
+  className="relative z-10 bg-rose-600 text-white px-10 py-4 rounded-2xl font-black uppercase tracking-widest hover:bg-rose-700 transition-colors inline-block"
+>
+  Explore Shop
+</a>
           </section>
 
         </main>
