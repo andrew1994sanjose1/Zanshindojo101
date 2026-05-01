@@ -22,11 +22,12 @@ async function startServer() {
     // PayMongo Checkout Session Route
   app.post('/api/create-checkout-session', async (req, res) => {
     try {
-      // Direkta nating i-hardcode ang base64 para wala nang computation error
-      // Ito ay base64 ng 'sk_test_PYGoLvTtaMmAQtvf1htbPEua:'
       const authHeader = 'Basic c2tfdGVzdF9QWUdvTHZUdGFNbUFRdHZmMWh0YlBFdWE6';
 
-      const response = await fetch('https://api.paymongo.com/v1/checkout_sessions', {
+      // Siguraduhin na walang extra spaces sa URL na ito
+      const url = 'https://api.paymongo.com/v1/checkout_sessions';
+
+      const response = await fetch(url, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -54,12 +55,14 @@ async function startServer() {
         })
       });
 
-      const result = await response.json();
-      console.log("PAYMONGO_DEBUG:", result); // Lalabas ito sa Render logs
-
-      if (result.errors) {
-        return res.status(400).json({ error: "PayMongo Error", details: result.errors });
+      // Dito natin malalaman kung bakit 404
+      if (response.status === 404) {
+        console.error("ERROR: Maling URL ang tinatawagan ng server.");
+        return res.status(404).json({ error: "PayMongo URL not found. Check server.ts code." });
       }
+
+      const result = await response.json();
+      console.log("PAYMONGO_DEBUG:", JSON.stringify(result));
 
       res.json(result);
     } catch (error) {
