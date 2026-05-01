@@ -12,7 +12,7 @@ const getStripe = () => {
 };
 
 async function startServer() {
-  const app = express();
+    const app = express();
     const PORT = parseInt(process.env.PORT || "3000", 10);
 
     // Middleware para mabasa ang JSON body
@@ -26,7 +26,6 @@ async function startServer() {
           headers: {
             accept: 'application/json',
             'Content-Type': 'application/json',
-            // Ginagamit ang Buffer para sa Secure Basic Auth sa Backend
             authorization: 'Basic ' + Buffer.from('sk_test_PYGoLvTtaMmAQtvf1htbPEua:').toString('base64')
           },
           body: JSON.stringify({
@@ -37,7 +36,7 @@ async function startServer() {
                 description: 'Zenith Dojo Monthly Membership Fee',
                 line_items: [
                   {
-                    amount: 5000, // $50.00
+                    amount: 5000, 
                     currency: 'USD',
                     name: 'Monthly membership fee',
                     quantity: 1
@@ -60,7 +59,7 @@ async function startServer() {
       }
     });
 
-    // Existing routes mo (Stripe, static files, etc.)
+    // Static files at SPA routing
     app.use(express.static(path.join(__dirname, "../dist")));
 
     app.get("*", (req, res) => {
@@ -70,3 +69,7 @@ async function startServer() {
     app.listen(PORT, () => {
       console.log(`Server is running on port ${PORT}`);
     });
+} // <--- Ito yung nagsasara ng startServer function
+
+// Wag kalimutan tawagin ang function sa dulo
+startServer();
