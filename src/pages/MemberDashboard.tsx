@@ -16,22 +16,28 @@ export function MemberDashboard() {
   const [searchParams] = useSearchParams();
   const paymentStatus = searchParams.get('payment');
 
-  // 1. Logic para sa User Progress (Ito yung in-async natin para mawala ang error sa Line 77)
+  // 1. Logic para sa User Progress at Classes (Async Fix)
   useEffect(() => {
-    const fetchProgress = async () => {
+    const fetchData = async () => {
       if (!user?.uid) return;
       try {
+        // Fetch user progress
         const progressRef = doc(db, 'progress', user.uid);
-        const progressSnap = await getDoc(progressRef); // Dito yung dating error
+        const progressSnap = await getDoc(progressRef);
         if (progressSnap.exists()) {
           setProgress(progressSnap.data() as UserProgress);
         }
+
+        // Fetch dojo classes (Ito yung Line 87 error fix)
+        const q = query(collection(db, 'classes'));
+        const querySnapshot = await getDocs(q);
+        setClasses(querySnapshot.docs.map(d => ({ id: d.id, ...d.data() } as DojoClass)));
       } catch (error) {
-        console.error("Error fetching progress:", error);
+        console.error("Error fetching data:", error);
       }
     };
 
-    fetchProgress();
+    fetchData();
   }, [user, db]);
 
   // 2. Logic para sa PayMongo Payment
@@ -42,7 +48,6 @@ export function MemberDashboard() {
       headers: {
         accept: 'application/json',
         'Content-Type': 'application/json',
-        // Ang iyong Test Secret Key
         authorization: 'Basic ' + btoa('sk_test_PYGoLvTtaMmAQtvf1htbPEua:')
       },
       body: JSON.stringify({
@@ -54,7 +59,7 @@ export function MemberDashboard() {
             description: 'Zenith Dojo Monthly Membership Fee',
             line_items: [
               {
-                amount: 5000, // $50.00
+                amount: 5000,
                 currency: 'USD',
                 name: 'Monthly membership fee',
                 quantity: 1
@@ -71,28 +76,15 @@ export function MemberDashboard() {
     try {
       const response = await fetch('https://api.paymongo.com/v1/checkout_sessions', options);
       const result = await response.json();
-      
       if (result.data?.attributes?.checkout_url) {
         window.location.href = result.data.attributes.checkout_url;
-      } else {
-        alert("Hindi makagawa ng payment session. Check your internet.");
       }
     } catch (err) {
-      console.error("Payment redirect error:", err);
-      alert("May error sa pag-connect sa PayMongo.");
+      console.error("Payment error:", err);
     } finally {
       setIsPaying(false);
     }
   };
-      const querySnapshot = await getDocs(q);
-      setClasses(querySnapshot.docs.map(d => ({ id: d.id, ...d.data() } as DojoClass)));
-    };
-
-    fetchData();
-  }, [user]);
-
-  if (!userData) return null;
-
   return (
     <div className="pt-24 pb-12 px-6 md:px-12 max-w-7xl mx-auto min-h-screen bg-slate-50">
       {paymentStatus === 'success' && (
