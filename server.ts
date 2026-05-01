@@ -45,7 +45,7 @@ async function startServer() {
                 quantity: 1
               }
             ],
-            payment_method_types: ['card', 'gcash', 'maya'],
+            payment_method_types: ['card', 'gcash', 'paymaya'],
             description: 'Karate School Membership',
             success_url: 'https://zanshindojo101.onrender.com/MemberDashboard?payment=success',
             cancel_url: 'https://zanshindojo101.onrender.com/MemberDashboard?payment=cancelled'
