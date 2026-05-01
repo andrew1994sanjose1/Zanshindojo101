@@ -44,12 +44,13 @@ export function MemberDashboard() {
  const handlePayment = async () => {
     setIsPaying(true);
     try {
-      const response = await fetch('/api/create-checkout-session', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      });
+      // Palitan ang fetch url sa MemberDashboard.tsx
+const response = await fetch('https://zanshindojo101.onrender.com/api/create-checkout-session', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+});
       
       const result = await response.json();
 
