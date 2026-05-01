@@ -25,34 +25,37 @@ async function startServer() {
       const KEY = 'sk_test_PYGoLvTtaMmAQtvf1htbPEua:'; // May colon sa dulo
       const ENCODED_KEY = Buffer.from(KEY).toString('base64');
 
-      const response = await fetch(PAYMONGO_URL, {
-        method: 'POST',
-        headers: {
-          'Authorization': `Basic ${ENCODED_KEY}`,
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        body: JSON.stringify({
-          data: {
-            attributes: {
-              show_description: true,
-              show_line_items: true,
-              description: 'Zanshin Dojo Fee',
-              line_items: [
-                {
-                  amount: 150000,
-                  currency: 'PHP',
-                  name: 'Monthly Membership',
-                  quantity: 1
-                }
-              ],
-              payment_method_types: ['card', 'gcash', 'maya'],
-              success_url: 'https://zanshindojo101.onrender.com/MemberDashboard?payment=success',
-              cancel_url: 'https://zanshindojo101.onrender.com/MemberDashboard?payment=cancelled'
-            }
+      // Hanapin ang fetch part sa server.ts
+const response = await fetch('https://api.paymongo.com/v1/checkout_sessions', {
+  method: 'POST',
+  headers: {
+    'Accept': 'application/json',
+    'Content-Type': 'application/json',
+    // DIRETSO NA NATIN ANG BASE64 STRING PARA WALA NANG MALING CONVERSION
+    'Authorization': 'Basic c2tfdGVzdF9QWUdvTHZ0YU1tQVF0dmYxaHRiUEV1YTo='
+  },
+  body: JSON.stringify({
+    data: {
+      attributes: {
+        send_email_receipt: false,
+        show_description: true,
+        show_line_items: true,
+        description: 'Zanshin Dojo Membership Fee',
+        line_items: [
+          {
+            amount: 150000,
+            currency: 'PHP',
+            name: 'Monthly membership',
+            quantity: 1
           }
-        })
-      });
+        ],
+        payment_method_types: ['card', 'gcash', 'maya'],
+        success_url: 'https://zanshindojo101.onrender.com/MemberDashboard?payment=success',
+        cancel_url: 'https://zanshindojo101.onrender.com/MemberDashboard?payment=cancelled'
+      }
+    }
+  })
+});
 
       const result = await response.json();
       
