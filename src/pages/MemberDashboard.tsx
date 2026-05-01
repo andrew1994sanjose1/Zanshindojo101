@@ -80,8 +80,6 @@ export function MemberDashboard() {
       )}
 
       <div className="flex flex-col md:flex-row gap-8 items-start">
-          className="mb-8 p-4 bg-emerald-50 border border-emerald-100 rounded-2xl flex items-center gap-3 text-emerald-700 font-bold"
-        >
           <CheckCircle2 size={20} />
           Payment successful! Your membership has been updated.
         </motion.div>
