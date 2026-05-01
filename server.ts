@@ -26,7 +26,7 @@ async function startServer() {
           headers: {
             accept: 'application/json',
             'Content-Type': 'application/json',
-            authorization: 'Basic ' + Buffer.from('sk_test_PYGoLvTtaMmAQtvf1htbPEua:').toString('base64')
+            authorization: 'Basic ' + Buffer.from('process.env.PAYMONGO_SECRET_KEY').toString('base64')
           },
           body: JSON.stringify({
             data: {
@@ -36,13 +36,13 @@ async function startServer() {
                 description: 'Zenith Dojo Monthly Membership Fee',
                 line_items: [
                   {
-                    amount: 5000, 
-                    currency: 'USD',
+                    amount: 150000, 
+                    currency: 'PHP',
                     name: 'Monthly membership fee',
                     quantity: 1
                   }
                 ],
-                payment_method_allowed: ['card'],
+                payment_method_types: ['card', 'gcash', 'maya'],
                 success_url: 'https://zanshindojo101.onrender.com/MemberDashboard?payment=success',
                 cancel_url: 'https://zanshindojo101.onrender.com/MemberDashboard?payment=cancelled'
               }
