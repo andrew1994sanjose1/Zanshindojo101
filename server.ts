@@ -21,31 +21,32 @@ async function startServer() {
     // PayMongo Checkout Session Route
    app.post('/api/create-checkout-session', async (req, res) => {
   try {
-    // PAALALA: Siguraduhin na 'PYGo' (Capital G) ang nakasulat
-    const secretKey = 'sk_test_PYGoLvTtaMmAQtvf1htbPEua'; 
-    const authHeader = `Basic ${Buffer.from(secretKey + ':').toString('base64')}`;
+    // I-paste mo dito yung kinuha mo sa COPY button kanina
+    const SECRET_KEY = 'sk_test_PYGoLvTtaMmAQtvf1htbPEua'; 
+    
+    // Manual creation ng Authorization Header
+    const authString = Buffer.from(`${SECRET_KEY}:`).toString('base64');
 
     const response = await fetch('https://api.paymongo.com/v1/checkout_sessions', {
       method: 'POST',
       headers: {
-        'Accept': 'application/json',
         'Content-Type': 'application/json',
-        'Authorization': authHeader
+        'Authorization': `Basic ${authString}`,
+        'Accept': 'application/json'
       },
       body: JSON.stringify({
         data: {
           attributes: {
             line_items: [
               {
-                amount: 150000, // PHP 1,500.00
+                amount: 150000,
                 currency: 'PHP',
-                name: 'Zanshin Dojo Membership',
+                name: 'Zanshin Dojo Monthly Fee',
                 quantity: 1
               }
             ],
             payment_method_types: ['card', 'gcash', 'maya'],
-            description: 'Monthly Membership Fee',
-            // Palitan mo ito ng tamang URL ng Render mo
+            description: 'Karate School Membership',
             success_url: 'https://zanshindojo101.onrender.com/MemberDashboard?payment=success',
             cancel_url: 'https://zanshindojo101.onrender.com/MemberDashboard?payment=cancelled'
           }
@@ -53,19 +54,17 @@ async function startServer() {
       })
     });
 
-    const result = await response.json();
-    
-    // Para makita natin sa Render Logs kung 200 o 401 ang lumabas
-    console.log("CHECK_STATUS:", response.status);
-    console.log("PAYMONGO_DEBUG:", JSON.stringify(result));
+    const data = await response.json();
+    console.log("SERVER_LOG_STATUS:", response.status);
 
     if (!response.ok) {
-      return res.status(response.status).json(result);
+      console.log("PAYMONGO_ERROR_DETAIL:", JSON.stringify(data));
+      return res.status(response.status).json(data);
     }
 
-    res.json(result);
+    res.json(data);
   } catch (error) {
-    console.error("BACKEND_ERROR:", error.message);
+    console.error("CRITICAL_BACKEND_ERROR:", error);
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
