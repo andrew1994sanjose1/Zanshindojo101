@@ -19,61 +19,56 @@ async function startServer() {
     app.use(express.json());
 
     // PayMongo Checkout Session Route
-    app.post('/api/create-checkout-session', async (req, res) => {
-    try {
-      const PAYMONGO_URL = 'https://api.paymongo.com/v1/checkout_sessions';
-      const KEY = 'sk_test_PYGoLvTtaMmAQtvf1htbPEua:'; // May colon sa dulo
-      const ENCODED_KEY = Buffer.from(KEY).toString('base64');
+   app.post('/api/create-checkout-session', async (req, res) => {
+  try {
+    // PAALALA: Siguraduhin na 'PYGo' (Capital G) ang nakasulat
+    const secretKey = 'sk_test_PYGoLvTtaMmAQtvf1htbPEua'; 
+    const authHeader = `Basic ${Buffer.from(secretKey + ':').toString('base64')}`;
 
-      // Hanapin ang fetch part sa server.ts
-const response = await fetch('https://api.paymongo.com/v1/checkout_sessions', {
-  method: 'POST',
-  headers: {
-    'Accept': 'application/json',
-    'Content-Type': 'application/json',
-    // DIRETSO NA NATIN ANG BASE64 STRING PARA WALA NANG MALING CONVERSION
-    'Authorization': 'Basic c2tfdGVzdF9QWUdvTHZ0YU1tQVF0dmYxaHRiUEV1YTo='
-  },
-  body: JSON.stringify({
-    data: {
-      attributes: {
-        send_email_receipt: false,
-        show_description: true,
-        show_line_items: true,
-        description: 'Zanshin Dojo Membership Fee',
-        line_items: [
-          {
-            amount: 150000,
-            currency: 'PHP',
-            name: 'Monthly membership',
-            quantity: 1
+    const response = await fetch('https://api.paymongo.com/v1/checkout_sessions', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': authHeader
+      },
+      body: JSON.stringify({
+        data: {
+          attributes: {
+            line_items: [
+              {
+                amount: 150000, // PHP 1,500.00
+                currency: 'PHP',
+                name: 'Zanshin Dojo Membership',
+                quantity: 1
+              }
+            ],
+            payment_method_types: ['card', 'gcash', 'maya'],
+            description: 'Monthly Membership Fee',
+            // Palitan mo ito ng tamang URL ng Render mo
+            success_url: 'https://zanshindojo101.onrender.com/MemberDashboard?payment=success',
+            cancel_url: 'https://zanshindojo101.onrender.com/MemberDashboard?payment=cancelled'
           }
-        ],
-        payment_method_types: ['card', 'gcash', 'maya'],
-        success_url: 'https://zanshindojo101.onrender.com/MemberDashboard?payment=success',
-        cancel_url: 'https://zanshindojo101.onrender.com/MemberDashboard?payment=cancelled'
-      }
+        }
+      })
+    });
+
+    const result = await response.json();
+    
+    // Para makita natin sa Render Logs kung 200 o 401 ang lumabas
+    console.log("CHECK_STATUS:", response.status);
+    console.log("PAYMONGO_DEBUG:", JSON.stringify(result));
+
+    if (!response.ok) {
+      return res.status(response.status).json(result);
     }
-  })
+
+    res.json(result);
+  } catch (error) {
+    console.error("BACKEND_ERROR:", error.message);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
 });
-
-      const result = await response.json();
-      
-      // LOGS PARA SA RENDER
-      console.log("STATUS_CODE:", response.status);
-      console.log("PAYMONGO_DEBUG:", JSON.stringify(result));
-
-      if (!response.ok) {
-        return res.status(response.status).json(result);
-      }
-
-      res.json(result);
-    } catch (error) {
-      console.error("CRITICAL_ERROR:", error.message);
-      res.status(500).json({ error: error.message });
-    }
-  });
-
   // Static files at SPA routing
   app.use(express.static(path.join(__dirname, "../dist")));
 
