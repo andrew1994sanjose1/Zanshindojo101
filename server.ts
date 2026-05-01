@@ -22,28 +22,27 @@ async function startServer() {
     // PayMongo Checkout Session Route
   app.post('/api/create-checkout-session', async (req, res) => {
     try {
-      const authHeader = 'Basic c2tfdGVzdF9QWUdvTHZUdGFNbUFRdHZmMWh0YlBFdWE6';
-
-      // Siguraduhin na walang extra spaces sa URL na ito
-      const url = 'https://api.paymongo.com/v1/checkout_sessions';
-
-      const response = await fetch(url, {
+      // SUBUKAN NATIN I-HARDCODE ANG AUTH DIRECTLY
+      // Gamitin muna natin ang Public Key mo para i-test kung 404 pa rin
+      const response = await fetch('https://api.paymongo.com/v1/checkout_sessions', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
-          'Authorization': authHeader
+          'accept': 'application/json',
+          'content-type': 'application/json',
+          'authorization': `Basic ${Buffer.from('pk_test_Ym19P77D4zYkGZkX7xVv2rUu:').toString('base64')}`
         },
         body: JSON.stringify({
           data: {
             attributes: {
+              send_email_receipt: false,
               show_description: true,
               show_line_items: true,
-              description: 'Zanshin Dojo Fee',
+              description: 'Zanshin Dojo Membership Fee',
               line_items: [
                 {
                   amount: 150000,
                   currency: 'PHP',
-                  name: 'Monthly Membership',
+                  name: 'Monthly membership',
                   quantity: 1
                 }
               ],
@@ -54,6 +53,16 @@ async function startServer() {
           }
         })
       });
+
+      const result = await response.json();
+      console.log("PAYMONGO_RESPONSE_FINAL:", JSON.stringify(result));
+
+      res.json(result);
+    } catch (error) {
+      console.error("SERVER_ERROR:", error);
+      res.status(500).json({ error: "Internal Server Error", details: error.message });
+    }
+  });
 
       // Dito natin malalaman kung bakit 404
       if (response.status === 404) {
