@@ -18,26 +18,59 @@ export function MemberDashboard() {
 
   const handlePayment = async () => {
     setIsPaying(true);
+    
+    // Inihahanda ang request para sa PayMongo Checkout Session
+    const options = {
+      method: 'POST',
+      headers: {
+        accept: 'application/json',
+        'Content-Type': 'application/json',
+        // Ang iyong Test Secret Key na nakuha natin sa PayMongo Dashboard
+        authorization: 'Basic ' + btoa('sk_test_PYGoLvTtaMmAQtvf1htbPEua:')
+      },
+      body: JSON.stringify({
+        data: {
+          attributes: {
+            send_email_receipt: true,
+            show_description: true,
+            show_line_items: true,
+            description: 'Zenith Dojo Monthly Membership Fee',
+            line_items: [
+              {
+                amount: 5000, // Halimbawa: $50.00 (naka-cents sa PayMongo API)
+                currency: 'USD', // Naka-set sa US Dollar para sa target market mo
+                name: 'Monthly membership fee',
+                quantity: 1
+              }
+            ],
+            payment_method_allowed: ['card'], // Card payment para sa US market
+            // Redirect URLs pagkatapos ng transaction
+            success_url: 'https://zanshindojo101.onrender.com/MemberDashboard?payment=success',
+            cancel_url: 'https://zanshindojo101.onrender.com/MemberDashboard?payment=cancelled'
+          }
+        }
+      })
+    };
+
     try {
-      const response = await fetch('/api/create-checkout-session', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          priceId: 'price_1P2vXgLqyN0Z0y1e1e1e1e1e', // Replace with real price ID
-        }),
-      });
-      const { url } = await response.json();
-      if (url) window.location.href = url;
+      // Tinatawagan ang PayMongo API
+      const response = await fetch('https://api.paymongo.com/v1/checkout_sessions', options);
+      const result = await response.json();
+      
+      // Kung may binigay na URL si PayMongo, ililipat natin doon ang student
+      if (result.data && result.data.attributes.checkout_url) {
+        window.location.href = result.data.attributes.checkout_url;
+      } else {
+        console.error("Payment session creation failed:", result);
+        alert("Failed to create payment session. Please try again.");
+      }
     } catch (err) {
-      console.error('Payment failed:', err);
+      console.error("Payment redirect error:", err);
+      alert("Something went wrong. Please check your connection.");
     } finally {
       setIsPaying(false);
     }
   };
-
-  useEffect(() => {
-    const fetchData = async () => {
-      if (!user) return;
       
       // Fetch user progress
       const progressRef = doc(db, 'progress', user.uid);
