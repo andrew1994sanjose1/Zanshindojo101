@@ -22,7 +22,7 @@ async function startServer() {
    app.post('/api/create-checkout-session', async (req, res) => {
   try {
     // I-paste mo dito yung kinuha mo sa COPY button kanina
-    const SECRET_KEY = 'sk_test_PYGoLvTtaMmAQtvf1htbPEua'; 
+    const SECRET_KEY = 'sk_test_PYgoLvTtaMmAQtvf1htbPEua'; 
     
     // Manual creation ng Authorization Header
     const authString = Buffer.from(`${SECRET_KEY}:`).toString('base64');
