@@ -21,24 +21,28 @@ async function startServer() {
     // PayMongo Checkout Session Route
     app.post('/api/create-checkout-session', async (req, res) => {
     try {
-      const response = await fetch('https://api.paymongo.com/v1/checkout_sessions', {
+      const PAYMONGO_URL = 'https://api.paymongo.com/v1/checkout_sessions';
+      const KEY = 'sk_test_PYGoLvTtaMmAQtvf1htbPEua:'; // May colon sa dulo
+      const ENCODED_KEY = Buffer.from(KEY).toString('base64');
+
+      const response = await fetch(PAYMONGO_URL, {
         method: 'POST',
         headers: {
-          'accept': 'application/json',
-          'content-type': 'application/json',
-          'authorization': `Basic ${Buffer.from('sk_test_PYGoLvTtaMmAQtvf1htbPEua:').toString('base64')}`
+          'Authorization': `Basic ${ENCODED_KEY}`,
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
         },
         body: JSON.stringify({
           data: {
             attributes: {
               show_description: true,
               show_line_items: true,
-              description: 'Zanshin Dojo Membership Fee',
+              description: 'Zanshin Dojo Fee',
               line_items: [
                 {
                   amount: 150000,
                   currency: 'PHP',
-                  name: 'Monthly membership',
+                  name: 'Monthly Membership',
                   quantity: 1
                 }
               ],
@@ -51,11 +55,19 @@ async function startServer() {
       });
 
       const result = await response.json();
+      
+      // LOGS PARA SA RENDER
+      console.log("STATUS_CODE:", response.status);
       console.log("PAYMONGO_DEBUG:", JSON.stringify(result));
+
+      if (!response.ok) {
+        return res.status(response.status).json(result);
+      }
+
       res.json(result);
     } catch (error) {
-      console.error("SERVER_ERROR:", error);
-      res.status(500).json({ error: "Internal Server Error", details: error.message });
+      console.error("CRITICAL_ERROR:", error.message);
+      res.status(500).json({ error: error.message });
     }
   });
 
