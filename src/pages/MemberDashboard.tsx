@@ -41,48 +41,32 @@ export function MemberDashboard() {
   }, [user, db]);
 
   // 2. Logic para sa PayMongo Payment
-  const handlePayment = async () => {
+ const handlePayment = async () => {
     setIsPaying(true);
-    const options = {
-      method: 'POST',
-      headers: {
-        accept: 'application/json',
-        'Content-Type': 'application/json',
-        authorization: 'Basic ' + btoa('sk_test_PYGoLvTtaMmAQtvf1htbPEua:')
-      },
-      body: JSON.stringify({
-        data: {
-          attributes: {
-            send_email_receipt: true,
-            show_description: true,
-            show_line_items: true,
-            description: 'Zenith Dojo Monthly Membership Fee',
-            line_items: [
-              {
-                amount: 5000,
-                currency: 'USD',
-                name: 'Monthly membership fee',
-                quantity: 1
-              }
-            ],
-            payment_method_allowed: ['card'],
-            success_url: 'https://zanshindojo101.onrender.com/MemberDashboard?payment=success',
-            cancel_url: 'https://zanshindojo101.onrender.com/MemberDashboard?payment=cancelled'
-          }
-        }
-      })
-    };
-
     try {
-      const response = await fetch('https://api.paymongo.com/v1/checkout_sessions', options);
+      // Tinatawag natin ang sarili mong backend para iwas CORS error
+      const response = await fetch('/api/create-checkout-session', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      
       const result = await response.json();
+
       if (result.data?.attributes?.checkout_url) {
         window.location.href = result.data.attributes.checkout_url;
+      } else {
+        console.error("PayMongo Error:", result);
+        alert("May problema sa payment session. Paki-check ang backend logs.");
       }
     } catch (err) {
-      console.error("Payment error:", err);
+      console.error("Frontend Fetch Error:", err);
+      alert("Hindi maka-connect sa server: " + err);
     } finally {
       setIsPaying(false);
+    }
+  };
     }
   };
   return (
