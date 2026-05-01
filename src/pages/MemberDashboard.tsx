@@ -80,12 +80,6 @@ export function MemberDashboard() {
       )}
 
       <div className="flex flex-col md:flex-row gap-8 items-start">
-          <CheckCircle2 size={20} />
-          Payment successful! Your membership has been updated.
-        </motion.div>
-    
-
-      <div className="flex flex-col md:flex-row gap-8 items-start">
         
         {/* Sidebar / Profile Info */}
         <aside className="w-full md:w-80 space-y-6">
