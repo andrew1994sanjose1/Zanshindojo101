@@ -13,62 +13,60 @@ const getStripe = () => {
 
 async function startServer() {
   const app = express();
-const PORT = parseInt(process.env.PORT || "3000", 10);
+    const PORT = parseInt(process.env.PORT || "3000", 10);
 
-app.use(express.json());
+    // Middleware para mabasa ang JSON body
+    app.use(express.json());
 
-// API routes
-app.get("/api/health", (req, res) => {
-  res.json({ status: "ok", shadow: "zenith" });
-});
+    // PayMongo Checkout Session Route
+    app.post('/api/create-checkout-session', async (req, res) => {
+      try {
+        const options = {
+          method: 'POST',
+          headers: {
+            accept: 'application/json',
+            'Content-Type': 'application/json',
+            // Ginagamit ang Buffer para sa Secure Basic Auth sa Backend
+            authorization: 'Basic ' + Buffer.from('sk_test_PYGoLvTtaMmAQtvf1htbPEua:').toString('base64')
+          },
+          body: JSON.stringify({
+            data: {
+              attributes: {
+                send_email_receipt: true,
+                show_description: true,
+                description: 'Zenith Dojo Monthly Membership Fee',
+                line_items: [
+                  {
+                    amount: 5000, // $50.00
+                    currency: 'USD',
+                    name: 'Monthly membership fee',
+                    quantity: 1
+                  }
+                ],
+                payment_method_allowed: ['card'],
+                success_url: 'https://zanshindojo101.onrender.com/MemberDashboard?payment=success',
+                cancel_url: 'https://zanshindojo101.onrender.com/MemberDashboard?payment=cancelled'
+              }
+            }
+          })
+        };
 
-app.post("/api/create-checkout-session", async (req, res) => {
-  try {
-    const s = getStripe();
-    if (!s) {
-      return res.status(500).json({ error: "Stripe is not configured" });
-    }
-
-    const { priceId, successUrl, cancelUrl } = req.body;
-
-    const session = await s.checkout.sessions.create({
-      line_items: [
-        {
-          price: priceId || 'price_1P2vXgLqyN0Z0y1e1e1e1e1e', // Placeholder if not provided
-          quantity: 1,
-        },
-      ],
-      mode: 'payment',
-      success_url: successUrl || `${req.headers.origin}/dashboard?payment=success`,
-      cancel_url: cancelUrl || `${req.headers.origin}/dashboard?payment=cancel`,
+        const response = await fetch('https://api.paymongo.com/v1/checkout_sessions', options);
+        const result = await response.json();
+        res.json(result);
+      } catch (error) {
+        console.error("PayMongo Backend Error:", error);
+        res.status(500).json({ error: "Internal Server Error" });
+      }
     });
 
-    res.json({ url: session.url });
-  } catch (err: any) {
-    console.error(err);
-    res.status(500).json({ error: err.message });
-  }
-});
+    // Existing routes mo (Stripe, static files, etc.)
+    app.use(express.static(path.join(__dirname, "../dist")));
 
-// Vite middleware for development
-if (process.env.NODE_ENV !== "production") {
-  const { createServer: createViteServer } = await import("vite");
-  const vite = await createViteServer({
-    server: { middlewareMode: true },
-    appType: "spa",
-  });
-  app.use(vite.middlewares);
-} else {
-  const distPath = path.join(process.cwd(), 'dist');
-  app.use(express.static(distPath));
-  app.get('*', (req, res) => {
-    res.sendFile(path.join(distPath, 'index.html'));
-  });
-}
+    app.get("*", (req, res) => {
+      res.sendFile(path.join(__dirname, "../dist/index.html"));
+    });
 
-app.listen(PORT, "0.0.0.0", () => {
-  console.log(`Server running on http://localhost:${PORT}`);
-});
-}
-
-startServer();
+    app.listen(PORT, () => {
+      console.log(`Server is running on port ${PORT}`);
+    });
