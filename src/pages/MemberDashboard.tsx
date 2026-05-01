@@ -62,8 +62,8 @@ export function MemberDashboard() {
       alert("Hindi maka-connect sa server: " + err);
     } finally {
       setIsPaying(false);
-    }
-  }; // Dito lang dapat magtatapos ang handlePayment function
+    };
+   // Dito lang dapat magtatapos ang handlePayment function
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           className="mb-8 p-4 bg-emerald-50 border border-emerald-100 rounded-2xl flex items-center gap-3 text-emerald-700 font-bold"
