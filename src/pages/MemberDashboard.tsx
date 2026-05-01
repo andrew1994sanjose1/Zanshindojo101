@@ -16,16 +16,33 @@ export function MemberDashboard() {
   const [searchParams] = useSearchParams();
   const paymentStatus = searchParams.get('payment');
 
+  // 1. Logic para sa User Progress (Ito yung in-async natin para mawala ang error sa Line 77)
+  useEffect(() => {
+    const fetchProgress = async () => {
+      if (!user?.uid) return;
+      try {
+        const progressRef = doc(db, 'progress', user.uid);
+        const progressSnap = await getDoc(progressRef); // Dito yung dating error
+        if (progressSnap.exists()) {
+          setProgress(progressSnap.data() as UserProgress);
+        }
+      } catch (error) {
+        console.error("Error fetching progress:", error);
+      }
+    };
+
+    fetchProgress();
+  }, [user, db]);
+
+  // 2. Logic para sa PayMongo Payment
   const handlePayment = async () => {
     setIsPaying(true);
-    
-    // Inihahanda ang request para sa PayMongo Checkout Session
     const options = {
       method: 'POST',
       headers: {
         accept: 'application/json',
         'Content-Type': 'application/json',
-        // Ang iyong Test Secret Key na nakuha natin sa PayMongo Dashboard
+        // Ang iyong Test Secret Key
         authorization: 'Basic ' + btoa('sk_test_PYGoLvTtaMmAQtvf1htbPEua:')
       },
       body: JSON.stringify({
@@ -37,14 +54,13 @@ export function MemberDashboard() {
             description: 'Zenith Dojo Monthly Membership Fee',
             line_items: [
               {
-                amount: 5000, // Halimbawa: $50.00 (naka-cents sa PayMongo API)
-                currency: 'USD', // Naka-set sa US Dollar para sa target market mo
+                amount: 5000, // $50.00
+                currency: 'USD',
                 name: 'Monthly membership fee',
                 quantity: 1
               }
             ],
-            payment_method_allowed: ['card'], // Card payment para sa US market
-            // Redirect URLs pagkatapos ng transaction
+            payment_method_allowed: ['card'],
             success_url: 'https://zanshindojo101.onrender.com/MemberDashboard?payment=success',
             cancel_url: 'https://zanshindojo101.onrender.com/MemberDashboard?payment=cancelled'
           }
@@ -53,36 +69,21 @@ export function MemberDashboard() {
     };
 
     try {
-      // Tinatawagan ang PayMongo API
       const response = await fetch('https://api.paymongo.com/v1/checkout_sessions', options);
       const result = await response.json();
       
-      // Kung may binigay na URL si PayMongo, ililipat natin doon ang student
-      if (result.data && result.data.attributes.checkout_url) {
+      if (result.data?.attributes?.checkout_url) {
         window.location.href = result.data.attributes.checkout_url;
       } else {
-        console.error("Payment session creation failed:", result);
-        alert("Failed to create payment session. Please try again.");
+        alert("Hindi makagawa ng payment session. Check your internet.");
       }
     } catch (err) {
       console.error("Payment redirect error:", err);
-      alert("Something went wrong. Please check your connection.");
+      alert("May error sa pag-connect sa PayMongo.");
     } finally {
       setIsPaying(false);
     }
   };
-      
-      // Fetch user progress
-      const progressRef = doc(db, 'progress', user.uid);
-      const progressSnap = await getDoc(progressRef);
-      if (progressSnap.exists()) {
-        setProgress(progressSnap.data() as UserProgress);
-      } else {
-        setProgress({ userId: user.uid, completedTutorials: [], totalXP: 0 });
-      }
-
-      // Fetch classes
-      const q = query(collection(db, 'classes'), where('capacity', '>', 0));
       const querySnapshot = await getDocs(q);
       setClasses(querySnapshot.docs.map(d => ({ id: d.id, ...d.data() } as DojoClass)));
     };
