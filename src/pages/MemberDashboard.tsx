@@ -200,7 +200,7 @@ const response = await fetch('https://zanshindojo101.onrender.com/api/create-che
   rel="noopener noreferrer"
   className="relative z-10 bg-rose-600 text-white px-10 py-4 rounded-2xl font-black uppercase tracking-widest hover:bg-rose-700 transition-colors inline-block"
 >
-  Explore Shop
+ Our Partner Karate Shop Store
 </a>
           </section>
 
