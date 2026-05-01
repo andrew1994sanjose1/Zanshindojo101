@@ -62,7 +62,9 @@ export function MemberDashboard() {
       alert("Hindi maka-connect sa server: " + err);
     } finally {
       setIsPaying(false);
-  }; // <--- IMPORTANTE: Siguraduhin na may semicolon dito sa line 65
+    }
+  };
+
   return (
     // Dito na dapat magsisimula ang iyong HTML/JSX return statement
           animate={{ opacity: 1, y: 0 }}
