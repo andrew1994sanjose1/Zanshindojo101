@@ -66,8 +66,20 @@ export function MemberDashboard() {
   };
 
   return (
-    // Dito na dapat magsisimula ang iyong HTML/JSX return statement
+    <div className="min-h-screen bg-slate-50 p-4 md:p-8">
+      {/* Success Message Alert */}
+      {window.location.search.includes('payment=success') && (
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
+          className="mb-8 p-4 bg-emerald-50 border border-emerald-100 rounded-xl flex items-center gap-3 text-emerald-700"
+        >
+          <CheckCircle2 size={20} />
+          <p className="font-medium">Payment successful! Your membership has been updated.</p>
+        </motion.div>
+      )}
+
+      <div className="flex flex-col md:flex-row gap-8 items-start">
           className="mb-8 p-4 bg-emerald-50 border border-emerald-100 rounded-2xl flex items-center gap-3 text-emerald-700 font-bold"
         >
           <CheckCircle2 size={20} />
