@@ -25,7 +25,7 @@ export function Navbar() {
       {/* Desktop Nav */}
       <div className="hidden md:flex items-center gap-8 text-sm font-semibold text-slate-500 uppercase tracking-widest">
         <Link to="/" className="hover:text-rose-600 transition-colors">Home</Link>
-        <Link to="/trials" className="hover:text-rose-600 transition-colors text-rose-600">Trials</Link>
+        <Link to="/trials" className="text-black">Trials</Link>
         {user ? (
           <>
             <Link to="/dashboard" className="hover:text-rose-600 transition-colors">Portal</Link>
