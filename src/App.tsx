@@ -41,8 +41,17 @@ export default function App() {
         const userRef = doc(db, 'users', user.uid);
         const userSnap = await getDoc(userRef);
         
-        if (userSnap.exists()) {
-          setUserData(userSnap.data() as DojoUser);
+       if (usersSnap.exists()) {
+      const data = usersSnap.data() as DojoUser;   
+      if (data.status === 'approved') {
+        setUserData(data);
+      } else {
+        // Kung hindi approved, i-sign out natin agad
+        await auth.signOut();
+        setUserData(null);
+        alert("member Access Not Approve Ask School Admin.");
+      }
+    }
         } else {
           // Create new user profile
           const newData: DojoUser = {
