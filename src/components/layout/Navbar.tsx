@@ -18,7 +18,7 @@ export function Navbar() {
           </div>
         </div>
         <span className="text-2xl font-black tracking-tighter text-slate-900 uppercase">
-          Central Park<span className="text-rose-600">Taekwondo Academy</span>
+          Central Park Taekwondo Academy <span className="text-rose-600"></span>
         </span>
       </Link>
 
