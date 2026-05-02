@@ -46,6 +46,7 @@ export function Navbar() {
 >
   Sign In
 </button>
+    
         )}
       </div>
 
