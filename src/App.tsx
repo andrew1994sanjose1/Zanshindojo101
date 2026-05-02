@@ -57,19 +57,13 @@ export default function App() {
       await auth.signOut();
       setUserData(null);
       alert("Member Not Registered.");
-    }
-          };
-          await setDoc(userRef, newData);
-          setUserData(newData);
-        }
-      } else {
-        setUserData(null);
-      }
-      setLoading(false);
-    });
+   } // Closing ng if (usersSnap.exists())
+    
+    setLoading(false);
+  }); // Closing ng onAuthStateChanged
 
-    return () => unsubscribe();
-  }, []);
+  return () => unsubscribe();
+}, [auth]); // Closing ng useEffect
 
   const signIn = async () => {
     const provider = new GoogleAuthProvider();
