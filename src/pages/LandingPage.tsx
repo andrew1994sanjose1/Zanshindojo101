@@ -141,7 +141,7 @@ export function LandingPage() {
           >
             <div className="text-[12rem] font-black text-slate-50 absolute -top-20 -left-10 select-none">1994</div>
             <h2 className="text-5xl font-black text-slate-900 uppercase tracking-tighter mb-8 leading-none relative z-10">
-              A Legacy of <span className="text-rose-600">Discipline.</span>
+              A Legacy of <span className="text-black">Discipline.</span>
             </h2>
             <p className="text-slate-500 font-medium leading-relaxed mb-8 relative z-10">
               Founded in Osaka in 1994, Zanshin Dojo has preserved the authentic Shitoryu style while embracing modern pedagogical techniques. Our lineage traces back through generations of masters, ensuring that every punch, kick, and kata taught today remains true to the original essence of karate.
