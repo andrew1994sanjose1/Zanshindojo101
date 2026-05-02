@@ -38,9 +38,14 @@ export function Navbar() {
             </button>
           </>
         ) : (
-          <button onClick={signIn} className="px-6 py-2.5 bg-slate-900 text-white rounded-full text-sm font-bold hover:bg-slate-800 transition-colors shadow-lg shadow-slate-200 cursor-pointer">
-            Sign In
-          </button>
+          {/* Ganito ang itsura ng button sa Navbar mo */}
+<button
+  onClick={signIn}
+  disabled // Ito ang magpapatay sa button
+  className="bg-slate-900 text-white px-6 py-2 rounded-full font-bold opacity-50 cursor-not-allowed"
+>
+  Sign In
+</button>
         )}
       </div>
 
