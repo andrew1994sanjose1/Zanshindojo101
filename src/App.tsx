@@ -80,7 +80,7 @@ export default function App() {
     return (
       <div className="min-h-screen flex items-center justify-center bg-slate-50 text-slate-900 font-mono">
         <div className="animate-pulse tracking-widest text-2xl font-black text-rose-600">
-          LOADING DOJO...
+          CENTRAL PARK TAEKWONDO ACADEMY.
         </div>
       </div>
     );
