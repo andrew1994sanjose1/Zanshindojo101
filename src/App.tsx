@@ -1,9 +1,9 @@
 import { useState, useEffect, createContext, useContext } from 'react';
-import { BrowserRouter as Router, Routes, Route, Link, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { onAuthStateChanged, User, signInWithPopup, GoogleAuthProvider, signOut } from 'firebase/auth';
-import { doc, getDoc, setDoc } from 'firebase/firestore';
+import { doc, getDoc } from 'firebase/firestore';
 import { auth, db } from './lib/firebase';
-import { DojoUser, UserRole } from './types';
+import { DojoUser } from './types';
 import { Navbar } from './components/layout/Navbar';
 import { LandingPage } from './pages/LandingPage';
 import { MemberDashboard } from './pages/MemberDashboard';
@@ -37,35 +37,35 @@ export default function App() {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       setUser(user);
+
       if (user) {
         const userRef = doc(db, 'users', user.uid);
         const userSnap = await getDoc(userRef);
-        
-       if (usersSnap.exists()) {
-      const data = usersSnap.data() as DojoUser;
-      
-      if (data.status === 'approved') {
-        setUserData(data);
-      } else {
-        // Kung hindi approved, i-sign out natin agad
-        await auth.signOut();
-        setUserData(null);
-        alert("Member Access Not Approved. Ask School Admin.");
-      }
-    } else {
-      // Kung wala sa database ang email, i-reject ang login
-      await auth.signOut();
-      setUserData(null);
-      alert("Member Not Registered.");
-   } // Closing ng if (usersSnap.exists())
-    
-    setLoading(false);
-  }; 
-    
-    // Closing ng onAuthStateChanged
 
-  return () => unsubscribe();
-}, [auth]); // Closing ng useEffect
+        if (userSnap.exists()) {
+          const data = userSnap.data() as DojoUser;
+
+          if (data.status === 'approved') {
+            setUserData(data);
+          } else {
+            await signOut(auth);
+            setUserData(null);
+            alert("Member Access Not Approved. Ask School Admin.");
+          }
+        } else {
+          await signOut(auth);
+          setUserData(null);
+          alert("Member Not Registered.");
+        }
+      } else {
+        setUserData(null);
+      }
+
+      setLoading(false);
+    });
+
+    return () => unsubscribe();
+  }, []);
 
   const signIn = async () => {
     const provider = new GoogleAuthProvider();
@@ -79,7 +79,9 @@ export default function App() {
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-slate-50 text-slate-900 font-mono">
-        <div className="animate-pulse tracking-widest text-2xl font-black text-rose-600">LOADING DOJO...</div>
+        <div className="animate-pulse tracking-widest text-2xl font-black text-rose-600">
+          LOADING DOJO...
+        </div>
       </div>
     );
   }
@@ -91,21 +93,26 @@ export default function App() {
           <Navbar />
           <Routes>
             <Route path="/" element={<LandingPage />} />
-            <Route 
-              path="/trials" 
-              element={<TrialsPage />} 
+            <Route path="/trials" element={<TrialsPage />} />
+            <Route
+              path="/dashboard"
+              element={user ? <MemberDashboard /> : <Navigate to="/" />}
             />
-            <Route 
-              path="/dashboard" 
-              element={user ? <MemberDashboard /> : <Navigate to="/" />} 
+            <Route
+              path="/instructor"
+              element={
+                userData?.role === 'instructor' || userData?.role === 'admin'
+                  ? <InstructorDashboard />
+                  : <Navigate to="/" />
+              }
             />
-            <Route 
-              path="/instructor" 
-              element={userData?.role === 'instructor' || userData?.role === 'admin' ? <InstructorDashboard /> : <Navigate to="/" />} 
-            />
-            <Route 
-              path="/admin" 
-              element={userData?.role === 'staff' || userData?.role === 'admin' ? <AdminDashboard /> : <Navigate to="/" />} 
+            <Route
+              path="/admin"
+              element={
+                userData?.role === 'staff' || userData?.role === 'admin'
+                  ? <AdminDashboard />
+                  : <Navigate to="/" />
+              }
             />
           </Routes>
         </div>
@@ -113,4 +120,3 @@ export default function App() {
     </AuthContext.Provider>
   );
 }
-export default App);
