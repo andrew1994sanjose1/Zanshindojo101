@@ -4,6 +4,7 @@ import { Menu, X, User as UserIcon, LogOut, Shield } from 'lucide-react';
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { cn } from '../../lib/utils';
+import logo from '../../assets/logoo.png';
 
 export function Navbar() {
   const { user, userData, signIn, logout } = useAuth();
