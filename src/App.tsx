@@ -42,24 +42,22 @@ export default function App() {
         const userSnap = await getDoc(userRef);
         
        if (usersSnap.exists()) {
-      const data = usersSnap.data() as DojoUser;   
+      const data = usersSnap.data() as DojoUser;
+      
       if (data.status === 'approved') {
         setUserData(data);
       } else {
         // Kung hindi approved, i-sign out natin agad
         await auth.signOut();
         setUserData(null);
-        alert("member Access Not Approve Ask School Admin.");
+        alert("Member Access Not Approved. Ask School Admin.");
       }
+    } else {
+      // Kung wala sa database ang email, i-reject ang login
+      await auth.signOut();
+      setUserData(null);
+      alert("Member Not Registered.");
     }
-        } else {
-          // Create new user profile
-          const newData: DojoUser = {
-            uid: user.uid,
-            email: user.email || '',
-            displayName: user.displayName || '',
-            role: 'member',
-            joinedAt: new Date().toISOString(),
           };
           await setDoc(userRef, newData);
           setUserData(newData);
