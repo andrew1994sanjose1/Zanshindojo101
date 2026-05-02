@@ -18,7 +18,8 @@ export function Navbar() {
             <div className="w-1 h-3 bg-white rotate-45"></div>
           </div>
         </div>
-        <span className="text-2xl font-black tracking-tighter text-slate-900 uppercase">
+        <span className="flex items-center gap-2 text-2xl font-black tracking-tighter text-slate-900 uppercase">
+  <img src={academyLogo} alt="Logo" className="h-8 w-auto" />
           Central Park Taekwondo Academy <span className="text-rose-600"></span>
         </span>
       </Link>
