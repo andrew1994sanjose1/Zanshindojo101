@@ -4,7 +4,7 @@ import { Menu, X, User as UserIcon, LogOut } from 'lucide-react';
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { cn } from '../../lib/utils';
-import logo from '../../assets/logoo.png';
+import academyLogo from '../../assets/logoo.png';
 
 export function Navbar() {
   const { user, userData, signIn, logout } = useAuth();
@@ -18,8 +18,10 @@ export function Navbar() {
             <div className="w-1 h-3 bg-white rotate-45"></div>
           </div>
         </div>
-        <span className="text-2xl font-black tracking-tighter text-slate-900 uppercase">
-          Central Park Taekwondo Academy <span className="text-rose-600"></span>
+        <span className="flex items-center gap-3 text-2xl font-black tracking-tighter text-slate-900 uppercase">
+  <img src={academyLogo} alt="Logo" className="h-10 w-auto" />
+  Central Park Taekwondo Academy
+</span>
         </span>
       </Link>
 
