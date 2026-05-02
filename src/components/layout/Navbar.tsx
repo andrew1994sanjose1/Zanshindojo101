@@ -19,16 +19,23 @@ export function Navbar() {
           </div>
         </div>
         <Link to="/" className="flex items-center py-2">
-  <span className="flex items-center gap-4 text-2xl font-black tracking-tighter text-slate-900 uppercase">
-    <img 
-      src={academyLogo} 
-      alt="Central Park Logo" 
-      className="h-16 w-auto object-contain" 
-    />
-    CENTRAL PARK TAEKWONDO ACADEMY
-  </span>
-</Link>
+          <span className="flex items-center gap-4 text-2xl font-black tracking-tighter text-slate-900 uppercase">
+            <img 
+              src={academyLogo} 
+              alt="Central Park Logo" 
+              className="h-16 w-auto object-contain" 
+            />
+            CENTRAL PARK TAEKWONDO ACADEMY
+          </span>
+        </Link>
 
+        {/* Siguraduhin na ganito ang dulo para mawala ang Error */}
+      </div>
+    </nav>
+  );
+};
+
+export default Navbar;
       {/* Desktop Nav */}
       <div className="hidden md:flex items-center gap-8 text-sm font-semibold text-slate-500 uppercase tracking-widest">
         <Link to="/" className="hover:text-rose-600 transition-colors">Home</Link>
