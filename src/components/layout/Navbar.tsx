@@ -1,9 +1,8 @@
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../App';
-import { Menu, X, User as UserIcon, LogOut } from 'lucide-react';
+import { Menu, X, LogOut } from 'lucide-react';
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { cn } from '../../lib/utils';
 import academyLogo from '../../assets/logoo.png';
 
 export function Navbar() {
@@ -12,29 +11,30 @@ export function Navbar() {
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-white shadow-sm border-b border-slate-100 h-20 flex items-center px-6 md:px-12 justify-between">
-      <Link to="/" className="flex items-center gap-3 group">
-        <div className="w-10 h-10 bg-black rounded-lg flex items-center justify-center group-hover:rotate-6 transition-transform duration-300 shadow-lg shadow-rose-200">
-          <div className="w-6 h-6 border-2 border-white rounded-full flex items-center justify-center">
-            <div className="w-1 h-3 bg-white rotate-45"></div>
-          </div>
-        </div>
-       <span className="flex items-center gap-3 text-2xl font-black tracking-tighter text-slate-900 uppercase">
-  <img src={academyLogo} alt="Logo" className="h-10 w-auto" />
-  Central Park Taekwondo Academy
-</span>
-  </Link>
+      
+      {/* LOGO + TITLE */}
+      <Link to="/" className="flex items-center gap-4 group">
+        {/* 🔥 mas pinalaking logo */}
+        <img src={academyLogo} alt="Logo" className="h-12 md:h-14 w-auto" />
 
-export default Navbar;
+        <span className="text-xl md:text-2xl font-black tracking-tighter text-slate-900 uppercase leading-tight">
+          Central Park Taekwondo Academy
+        </span>
+      </Link>
+
       {/* Desktop Nav */}
       <div className="hidden md:flex items-center gap-8 text-sm font-semibold text-slate-500 uppercase tracking-widest">
         <Link to="/" className="hover:text-rose-600 transition-colors">Home</Link>
         <Link to="/trials" className="text-black">Trials</Link>
+
         {user ? (
           <>
             <Link to="/dashboard" className="hover:text-rose-600 transition-colors">Portal</Link>
+
             {(userData?.role === 'staff' || userData?.role === 'admin') && (
               <Link to="/admin" className="text-slate-900 hover:text-rose-600">Admin</Link>
             )}
+
             <button onClick={logout} className="flex items-center gap-2 hover:text-rose-600 transition-colors cursor-pointer">
               <LogOut size={16} />
               Sign Out
@@ -52,7 +52,7 @@ export default Navbar;
         {isOpen ? <X /> : <Menu />}
       </button>
 
-      {/* Mobile Nav Overlay */}
+      {/* Mobile Nav */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -63,13 +63,18 @@ export default Navbar;
           >
             <Link to="/" onClick={() => setIsOpen(false)} className="text-sm font-bold uppercase tracking-widest text-slate-600 hover:text-rose-600">Home</Link>
             <Link to="/trials" onClick={() => setIsOpen(false)} className="text-sm font-bold uppercase tracking-widest text-rose-600">Trials</Link>
+
             {user ? (
               <>
                 <Link to="/dashboard" onClick={() => setIsOpen(false)} className="text-sm font-bold uppercase tracking-widest text-slate-600 hover:text-rose-600">Portal</Link>
-                <button onClick={() => { logout(); setIsOpen(false); }} className="text-sm font-bold text-left uppercase tracking-widest text-slate-600 hover:text-rose-600">Sign Out</button>
+                <button onClick={() => { logout(); setIsOpen(false); }} className="text-sm font-bold text-left uppercase tracking-widest text-slate-600 hover:text-rose-600">
+                  Sign Out
+                </button>
               </>
             ) : (
-              <button onClick={() => { signIn(); setIsOpen(false); }} disabled className="bg-slate-100 text-slate-400 px-6 py-3 rounded-full font-bold tracking-widest opacity-60 cursor-not-allowed">Sign In</button>
+              <button onClick={() => { signIn(); setIsOpen(false); }} disabled className="bg-slate-100 text-slate-400 px-6 py-3 rounded-full font-bold tracking-widest opacity-60 cursor-not-allowed">
+                Sign In
+              </button>
             )}
           </motion.div>
         )}
@@ -78,3 +83,4 @@ export default Navbar;
   );
 }
 
+export default Navbar;
