@@ -310,7 +310,7 @@ export function LandingPage() {
                   />
                 </div>
               </div>
-              <button className="w-full text-black text-white p-5 rounded-2xl font-bold uppercase tracking-widest hover:text-black transition-all shadow-lg shadow-black-100 cursor-pointer">
+              <button className="w-full text-black text-black p-5 rounded-2xl font-bold uppercase tracking-widest hover:text-black transition-all shadow-lg shadow-black-100 cursor-pointer">
                 Submit Reservation
               </button>
               
