@@ -28,7 +28,6 @@ export function Navbar() {
             CENTRAL PARK TAEKWONDO ACADEMY
           </span>
         </Link>
-
       </div>
     </nav>
   );
