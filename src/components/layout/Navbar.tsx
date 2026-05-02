@@ -32,28 +32,22 @@ export function Navbar() {
             {(userData?.role === 'staff' || userData?.role === 'admin') && (
               <Link to="/admin" className="text-slate-900 hover:text-rose-600">Admin</Link>
             )}
-            {userData ? (
-        <button 
-          onClick={logout} 
-          className="flex items-center gap-2 hover:text-rose-600 transition-colors cursor-pointer"
-        >
-          <LogOut size={16} />
-          Sign Out
-        </button>
-      ) : (
-        <button
-          onClick={signIn}
-          className="bg-slate-900 text-white px-6 py-2 rounded-full font-bold hover:bg-slate-800 transition-colors"
-        >
-          Sign In
-        </button>
-      )}
-    </div>
+            <button onClick={logout} className="flex items-center gap-2 hover:text-rose-600 transition-colors cursor-pointer">
+              <LogOut size={16} />
+              Sign Out
+            </button>
+          </>
+        ) : (
+          <button onClick={signIn} className="px-6 py-2.5 bg-slate-900 text-white rounded-full text-sm font-bold hover:bg-slate-800 transition-colors shadow-lg shadow-slate-200 cursor-pointer">
+            Sign In
+          </button>
+        )}
+      </div>
 
-    {/* Mobile Menu Toggle */}
-    <button className="md:hidden text-slate-900" onClick={() => setIsOpen(!isOpen)}>
-      {isOpen ? <X /> : <Menu />}
-    </button>
+      {/* Mobile Menu Toggle */}
+      <button className="md:hidden text-slate-900" onClick={() => setIsOpen(!isOpen)}>
+        {isOpen ? <X /> : <Menu />}
+      </button>
 
       {/* Mobile Nav Overlay */}
       <AnimatePresence>
@@ -80,3 +74,4 @@ export function Navbar() {
     </nav>
   );
 }
+
