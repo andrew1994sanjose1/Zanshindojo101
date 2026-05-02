@@ -271,7 +271,7 @@ export function LandingPage() {
                     type="text" 
                     value={trialForm.name}
                     onChange={(e) => setTrialForm({...trialForm, name: e.target.value})}
-                    className="w-full bg-slate-50 border border-slate-200 p-4 rounded-2xl focus:border-rose-500 outline-none transition-all placeholder:text-slate-400" 
+                    className="w-full bg-slate-50 border border-slate-200 p-4 rounded-2xl focus:border-slate-400 outline-none transition-all placeholder:text-slate-400" 
                     placeholder="Kenji Sato"
                   />
                 </div>
@@ -282,7 +282,7 @@ export function LandingPage() {
                     type="email" 
                     value={trialForm.email}
                     onChange={(e) => setTrialForm({...trialForm, email: e.target.value})}
-                    className="w-full bg-slate-50 border border-slate-200 p-4 rounded-2xl focus:border-rose-500 outline-none transition-all placeholder:text-slate-400" 
+                    className="w-full bg-slate-50 border border-slate-200 p-4 rounded-2xl focus:border-slate-400 outline-none transition-all placeholder:text-slate-400" 
                     placeholder="kenji@training.com"
                   />
                 </div>
@@ -295,7 +295,7 @@ export function LandingPage() {
                     type="tel" 
                     value={trialForm.phone}
                     onChange={(e) => setTrialForm({...trialForm, phone: e.target.value})}
-                    className="w-full bg-slate-50 border border-slate-200 p-4 rounded-2xl focus:border-rose-500 outline-none transition-all placeholder:text-slate-400" 
+                    className="w-full bg-slate-50 border border-slate-200 p-4 rounded-2xl focus:border-slate-400 outline-none transition-all placeholder:text-slate-400" 
                     placeholder="+81 90-1234-5678"
                   />
                 </div>
