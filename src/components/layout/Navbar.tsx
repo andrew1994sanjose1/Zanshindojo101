@@ -38,7 +38,7 @@ export function Navbar() {
             </button>
           </>
         ) : (
-          <button onClick={signIn} className="px-6 py-2.5 bg-slate-900 text-white rounded-full text-sm font-bold hover:bg-slate-800 transition-colors shadow-lg shadow-slate-200 cursor-pointer">
+          <button onClick={signIn} disabled className="px-6 py-2.5 bg-slate-900 text-white rounded-full text-sm font-bold hover:bg-slate-800 transition-colors shadow-lg shadow-slate-200 cursor-pointer">
             Sign In
           </button>
         )}
