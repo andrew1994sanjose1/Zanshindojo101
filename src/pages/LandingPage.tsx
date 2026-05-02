@@ -46,7 +46,7 @@ export function LandingPage() {
               animate={{ opacity: 1, scale: 1 }}
               className="inline-flex items-center gap-2 px-3 py-1 bg-rose-100 text-rose-700 rounded-full w-fit"
             >
-              <span className="w-2 h-2 bg-rose-600 rounded-full animate-pulse"></span>
+              <span className="w-2 h-2 text-black rounded-full animate-pulse"></span>
               <span className="text-xs font-bold uppercase tracking-wider">Enrolling for 2026</span>
             </motion.div>
             
