@@ -29,7 +29,6 @@ export function Navbar() {
           </span>
         </Link>
 
-        {/* Siguraduhin na ganito ang dulo para mawala ang Error */}
       </div>
     </nav>
   );
