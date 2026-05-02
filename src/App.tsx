@@ -60,7 +60,7 @@ export default function App() {
    } // Closing ng if (usersSnap.exists())
     
     setLoading(false);
-  }); // Closing ng onAuthStateChanged
+  }; // Closing ng onAuthStateChanged
 
   return () => unsubscribe();
 }, [auth]); // Closing ng useEffect
