@@ -33,9 +33,9 @@ export function LandingPage() {
       {/* Background Image Layer */}
         <div className="absolute inset-0 z-0">
           <img 
-            src="https://images.unsplash.com/photo-1483728642387-6c3bdd6c93e5?q=80&w=2076&auto=format&fit=crop" 
-            className="w-full h-full object-cover opacity-50"
-            alt="Misty Mountains"
+            src={bannerImg}
+  className="w-full h-full object-cover opacity-50"
+  alt="New Website Banner"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-slate-50 via-slate-50/20 to-transparent"></div>
         </div>
