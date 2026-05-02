@@ -56,7 +56,7 @@ export function LandingPage() {
               transition={{ duration: 0.8, delay: 0.2 }}
               className="text-6xl md:text-7xl font-black leading-[1.1] text-slate-900 tracking-tight"
             >
-              Master the Way of the <span className="text-rose-600 underline decoration-rose-200 underline-offset-4">Warrior.</span>
+              Master the Way of the <span className="text-black underline decoration-rose-200 underline-offset-4">Warrior.</span>
             </motion.h1>
 
             <motion.p
