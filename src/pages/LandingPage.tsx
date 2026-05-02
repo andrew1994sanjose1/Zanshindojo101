@@ -47,7 +47,7 @@ export function LandingPage() {
               className="inline-flex items-center gap-2 px-3 py-1 bg-rose-100 text-rose-700 rounded-full w-fit"
             >
               <span className="w-2 h-2 bg-rose-600 rounded-full animate-pulse"></span>
-              <span className="text-xs font-bold uppercase tracking-wider">Enrolling for 2024</span>
+              <span className="text-xs font-bold uppercase tracking-wider">Enrolling for 2026</span>
             </motion.div>
             
             <motion.h1 
