@@ -41,7 +41,7 @@ export function Navbar() {
           {/* Ganito ang itsura ng button sa Navbar mo */}
 <button
   onClick={signIn}
-  disabled // Ito ang magpapatay sa button
+  disabled={true}
   className="bg-slate-900 text-white px-6 py-2 rounded-full font-bold opacity-50 cursor-not-allowed"
 >
   Sign In
