@@ -33,15 +33,13 @@ export function Navbar() {
               <Link to="/admin" className="text-slate-900 hover:text-rose-600">Admin</Link>
             )}
             {userData ? (
-        <>
-          <button 
-            onClick={logout} 
-            className="flex items-center gap-2 hover:text-rose-600 transition-colors cursor-pointer"
-          >
-            <LogOut size={16} />
-            Sign Out
-          </button>
-        </>
+        <button 
+          onClick={logout} 
+          className="flex items-center gap-2 hover:text-rose-600 transition-colors cursor-pointer"
+        >
+          <LogOut size={16} />
+          Sign Out
+        </button>
       ) : (
         <button
           onClick={signIn}
@@ -51,10 +49,11 @@ export function Navbar() {
         </button>
       )}
     </div>
-      {/* Mobile Menu Toggle */}
-      <button className="md:hidden text-slate-900" onClick={() => setIsOpen(!isOpen)}>
-        {isOpen ? <X /> : <Menu />}
-      </button>
+
+    {/* Mobile Menu Toggle */}
+    <button className="md:hidden text-slate-900" onClick={() => setIsOpen(!isOpen)}>
+      {isOpen ? <X /> : <Menu />}
+    </button>
 
       {/* Mobile Nav Overlay */}
       <AnimatePresence>
