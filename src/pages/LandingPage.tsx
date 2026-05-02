@@ -78,7 +78,7 @@ export function LandingPage() {
                 onClick={signIn}            
                 className="w-full sm:w-auto px-8 py-4 bg-rose-600 text-white rounded-2xl text-lg font-bold shadow-xl shadow-rose-200 hover:bg-rose-700 hover:scale-105 transition-all flex items-center justify-center gap-3 cursor-pointer"
               >
-                Get Started Free <ArrowRight size={20} />
+                Member Login <ArrowRight size={20} />
               </button>
 
               <a 
