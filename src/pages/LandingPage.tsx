@@ -44,7 +44,7 @@ export function LandingPage() {
             <motion.div
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
-              className="inline-flex items-center gap-2 px-3 py-1 bg-rose-100 text-rose-700 rounded-full w-fit"
+              className="inline-flex items-center gap-2 px-3 py-1 bg-zinc-100 text-zinc-900 rounded-full w-fit"
             >
               <span className="w-2 h-2 text-black rounded-full animate-pulse"></span>
               <span className="text-xs font-bold uppercase tracking-wider">Enrolling for 2026</span>
@@ -56,7 +56,7 @@ export function LandingPage() {
               transition={{ duration: 0.8, delay: 0.2 }}
               className="text-6xl md:text-7xl font-black leading-[1.1] text-slate-900 tracking-tight"
             >
-              Master the Way of the <span className="text-black underline decoration-rose-200 underline-offset-4">Warrior.</span>
+              Master the Way of the <span className="text-black underline text-black underline-offset-4">Warrior.</span>
             </motion.h1>
 
             <motion.p
