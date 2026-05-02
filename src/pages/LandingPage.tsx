@@ -65,13 +65,13 @@ export function LandingPage() {
               transition={{ duration: 0.8, delay: 0.6 }}
               className="flex flex-col sm:flex-row items-center gap-4 mt-4"
             >
-              <button
-  onClick={signIn}
-  disabled // Idagdag ito para hindi na ma-click
-  className="w-full sm:w-auto px-8 py-4 bg-slate-400 text-white rounded-2xl text-lg font-bold shadow-sm cursor-not-allowed opacity-50"
->
-  Get Started Free (Maintenance) <ArrowRight size={20} />
-</button>
+              <button 
+                onClick={signIn}
+                className="w-full sm:w-auto px-8 py-4 bg-rose-600 text-white rounded-2xl text-lg font-bold shadow-xl shadow-rose-200 hover:bg-rose-700 hover:scale-105 transition-all flex items-center justify-center gap-3 cursor-pointer"
+              >
+                Get Started Free <ArrowRight size={20} />
+              </button>
+
               <a 
                 href="#trials"
                 className="w-full sm:w-auto px-8 py-4 bg-white border-2 border-slate-200 text-slate-900 rounded-2xl text-lg font-bold hover:bg-slate-50 transition-all text-center"
