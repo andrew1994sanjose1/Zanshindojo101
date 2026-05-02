@@ -66,7 +66,7 @@ export function Navbar() {
                 <button onClick={() => { logout(); setIsOpen(false); }} className="text-sm font-bold text-left uppercase tracking-widest text-slate-600 hover:text-rose-600">Sign Out</button>
               </>
             ) : (
-              <button onClick={() => { signIn(); setIsOpen(false); }} className="bg-slate-900 text-white px-6 py-3 rounded-full font-bold tracking-widest shadow-lg">Sign In</button>
+              <button onClick={() => { signIn(); setIsOpen(false); }} disabled className="bg-slate-100 text-slate-400 px-6 py-3 rounded-full font-bold tracking-widest opacity-60 cursor-not-allowed">Sign In</button>
             )}
           </motion.div>
         )}
