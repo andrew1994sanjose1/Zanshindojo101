@@ -12,7 +12,7 @@ export function Navbar() {
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-white shadow-sm border-b border-slate-100 h-20 flex items-center px-6 md:px-12 justify-between">
       <Link to="/" className="flex items-center gap-3 group">
-        <div className="w-10 h-10 bg-rose-600 rounded-lg flex items-center justify-center group-hover:rotate-6 transition-transform duration-300 shadow-lg shadow-rose-200">
+        <div className="w-10 h-10 bg-black rounded-lg flex items-center justify-center group-hover:rotate-6 transition-transform duration-300 shadow-lg shadow-rose-200">
           <div className="w-6 h-6 border-2 border-white rounded-full flex items-center justify-center">
             <div className="w-1 h-3 bg-white rotate-45"></div>
           </div>
