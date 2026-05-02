@@ -18,20 +18,13 @@ export function Navbar() {
             <div className="w-1 h-3 bg-white rotate-45"></div>
           </div>
         </div>
-        <Link to="/" className="flex items-center py-2">
-          <span className="flex items-center gap-4 text-2xl font-black tracking-tighter text-slate-900 uppercase">
-            <img 
-              src={academyLogo} 
-              alt="Central Park Logo" 
-              className="h-16 w-auto object-contain" 
-            />
+       <Link to="/" className="flex items-center">
+          <span className="flex items-center gap-3 text-2xl font-black tracking-tighter text-slate-900 uppercase">
+            {/* Tinanggal na natin yung lumang div class dito */}
             CENTRAL PARK TAEKWONDO ACADEMY
           </span>
         </Link>
-      </div>
-    </nav>
-  );
-};
+
 
 export default Navbar;
       {/* Desktop Nav */}
