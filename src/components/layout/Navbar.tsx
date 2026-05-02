@@ -22,7 +22,6 @@ export function Navbar() {
   <img src={academyLogo} alt="Logo" className="h-10 w-auto" />
   Central Park Taekwondo Academy
 </span>
-        </span>
       </Link>
 
       {/* Desktop Nav */}
