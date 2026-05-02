@@ -46,7 +46,7 @@ export function Navbar() {
 >
   Sign In
 </button>
-)}    
+      )}
       </div>
 
       {/* Mobile Menu Toggle */}
