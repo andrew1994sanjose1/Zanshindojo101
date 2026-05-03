@@ -85,7 +85,7 @@ export function LandingPage() {
                 href="#trials"
                 className="w-full sm:w-auto px-8 py-4 bg-white border-2 border-slate-200 text-slate-900 rounded-2xl text-lg font-bold hover:bg-slate-50 transition-all text-center"
               >
-                Watch Trailer
+                Book Your Reservation Now!
               </a>
             </motion.div>
 
