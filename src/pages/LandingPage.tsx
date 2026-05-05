@@ -5,7 +5,7 @@ import { addDoc, collection } from 'firebase/firestore';
 import { db } from '../lib/firebase';
 import bannerImg from '../assets/banner.jpg';
 import { Play, Shield, Target, ArrowRight, Clock, MapPin } from 'lucide-react';
-
+import karateKidImg from '../assets/karatekid.png';
 export function LandingPage() {
   const { signIn } = useAuth();
   const [trialForm, setTrialForm] = useState({ name: '', email: '', phone: '', preferredDate: '' });
