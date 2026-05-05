@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { useAuth } from '../../App';
 import { Menu, X, LogOut } from 'lucide-react';
 import { useState } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
+import { motion, AnimatePresence } from 'framer-motion'; // Binago ko to 'framer-motion' dahil baka hindi pa naka-install yung 'motion/react' sa system mo
 import academyLogo from '../../assets/logoo.png';
 
 export function Navbar() {
@@ -24,7 +24,7 @@ export function Navbar() {
       <div className="hidden md:flex items-center gap-8 text-sm font-semibold text-slate-500 uppercase tracking-widest">
         <Link to="/" className="text-black hover:text-rose-600 transition-colors">Home</Link>
         
-        {/* 🔥 NEW ANCHOR LINKS */}
+        {/* Anchor Links */}
         <a href="#legacy" className="text-black hover:text-rose-600 transition-colors">History</a>
         <a href="#schedules" className="text-black hover:text-rose-600 transition-colors">Schedule</a>
         <a href="#instructors" className="text-black hover:text-rose-600 transition-colors">Instructors</a>
@@ -32,20 +32,20 @@ export function Navbar() {
         <Link to="/trials" className="text-black hover:text-rose-600 transition-colors">Trials</Link>
 
         {user ? (
-          <>
+          <div className="flex items-center gap-6">
             <Link to="/dashboard" className="hover:text-rose-600 transition-colors">Portal</Link>
 
             {(userData?.role === 'staff' || userData?.role === 'admin') && (
               <Link to="/admin" className="text-slate-900 hover:text-rose-600">Admin</Link>
             )}
 
-            <button onClick={logout} className="flex items-center gap-2 hover:text-rose-600 transition-colors cursor-pointer">
+            <button onClick={() => logout()} className="flex items-center gap-2 hover:text-rose-600 transition-colors cursor-pointer outline-none">
               <LogOut size={16} />
               Sign Out
             </button>
-          </>
+          </div>
         ) : (
-          <button onClick={signIn} className="px-6 py-2.5 bg-slate-900 text-white rounded-full text-sm font-bold hover:bg-slate-800 transition-colors shadow-lg shadow-slate-200 cursor-pointer">
+          <button onClick={() => signIn()} className="px-6 py-2.5 bg-slate-900 text-white rounded-full text-sm font-bold hover:bg-slate-800 transition-colors shadow-lg shadow-slate-200 cursor-pointer">
             Sign In
           </button>
         )}
@@ -67,7 +67,6 @@ export function Navbar() {
           >
             <Link to="/" onClick={() => setIsOpen(false)} className="text-sm font-bold uppercase tracking-widest text-slate-600 hover:text-rose-600">Home</Link>
             
-            {/* 🔥 MOBILE NEW ANCHOR LINKS */}
             <a href="#legacy" onClick={() => setIsOpen(false)} className="text-sm font-bold uppercase tracking-widest text-slate-600 hover:text-rose-600">History</a>
             <a href="#schedules" onClick={() => setIsOpen(false)} className="text-sm font-bold uppercase tracking-widest text-slate-600 hover:text-rose-600">Schedule</a>
             <a href="#instructors" onClick={() => setIsOpen(false)} className="text-sm font-bold uppercase tracking-widest text-slate-600 hover:text-rose-600">Instructors</a>
