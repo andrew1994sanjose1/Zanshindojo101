@@ -80,7 +80,7 @@ export function LandingPage() {
               className="flex flex-col sm:flex-row items-center gap-4 mt-4"
             >
               <button 
-                onClick={() => signIn()}
+                disabled
                 className="w-full sm:w-auto px-10 py-5 bg-black text-white rounded-2xl text-lg font-bold shadow-2xl hover:scale-105 transition-all flex items-center justify-center gap-3 cursor-pointer"
               >
                 Enroll Now <ArrowRight size={20} />
