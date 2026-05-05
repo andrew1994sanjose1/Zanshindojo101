@@ -180,7 +180,7 @@ export function LandingPage() {
           <div className="col-span-2">
             <div className="flex items-center gap-3 mb-8">
               <div className="w-8 h-8 bg-black rounded-lg" />
-              <span className="text-2xl font-black tracking-tighter uppercase">Zanshin Dojo</span>
+              <span className="text-2xl font-black tracking-tighter uppercase">Taekwondo Academy</span>
             </div>
             <p className="text-slate-500 max-w-sm font-medium leading-relaxed">Preserving traditional martial arts through digital excellence.</p>
           </div>
