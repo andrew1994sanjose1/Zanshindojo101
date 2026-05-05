@@ -91,7 +91,9 @@ export function Navbar() {
                 </button>
               </>
             ) : (
-              <button onClick={() => { signIn(); setIsOpen(false); }} diabled className="bg-slate-900 text-white px-6 py-3 rounded-full font-bold tracking-widest">
+              <button onClick={() => { signIn(); setIsOpen(false); }}
+                disabled
+                className="bg-slate-900 text-white px-6 py-3 rounded-full font-bold tracking-widest">
                 Sign In
               </button>
             )}
