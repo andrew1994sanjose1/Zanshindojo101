@@ -13,7 +13,7 @@ export function LandingPage() {
         <div className="absolute inset-0 z-0">
           <img 
             src={bannerImg}
-            className="w-full h-full object-cover opacity-30"
+            className="w-full h-full object-cover opacity-100"
             alt="Dojo Banner"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-slate-50 via-slate-50/20 to-transparent"></div>
