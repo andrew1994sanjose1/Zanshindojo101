@@ -32,6 +32,7 @@ export function Navbar() {
         <Link to="/" className="text-black hover:text-rose-600 transition-colors">Home</Link>
         
         {/* --- MGA BAGONG LINKS --- */}
+        <a href="#home" className="text-black hover:text-rose-600 transition-colors">Home</a>
         <a href="#history" className="text-black hover:text-rose-600 transition-colors">History</a>
         <a href="#trainers" className="text-black hover:text-rose-600 transition-colors">Trainers</a>
         <a href="#schedules" className="text-black hover:text-rose-600 transition-colors">Schedules</a>
