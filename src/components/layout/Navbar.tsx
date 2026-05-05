@@ -93,7 +93,8 @@ export function Navbar() {
             ) : (
               <button onClick={() => { signIn(); setIsOpen(false); }}
                 disabled
-                className="bg-slate-900 text-white px-6 py-3 rounded-full font-bold tracking-widest">
+              className="bg-slate-900 text-white px-6 py-3 rounded-full font-bold tracking-widest disabled:opacity-50 disabled:pointer-events-none disabled:cursor-not-allowed"
+>
                 Sign In
               </button>
             )}
