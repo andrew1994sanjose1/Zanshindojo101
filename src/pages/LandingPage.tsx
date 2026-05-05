@@ -118,7 +118,7 @@ export function LandingPage() {
               A Legacy of <span className="text-black">Discipline.</span>
             </h2>
             <p className="text-slate-500 font-medium leading-relaxed mb-8 relative z-10">
-              Founded in Osaka in 1994, Zanshin Dojo has preserved the authentic Shitoryu style while embracing modern pedagogical techniques.
+            Founded in 1978 in the misty highlands of Gangwon Province, the Iron Bamboo Dojang wasn't built in a city, but in a small clearing near a waterfall. Its founder, Master Kang Dae-Hyun, was a retired military instructor who believed that modern martial arts were becoming too focused on sport and losing their "root" strength.
             </p>
             <div className="grid grid-cols-2 gap-8 border-t border-slate-100 pt-8">
                <div>
