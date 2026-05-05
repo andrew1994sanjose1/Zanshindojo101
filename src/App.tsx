@@ -89,6 +89,7 @@ export default function App() {
   return (
     <AuthContext.Provider value={{ user, userData, loading, signIn, logout }}>
       <Router>
+        {/* Siguraduhin na ang Navbar ay nasa loob ng Router */}
         <div className="min-h-screen bg-slate-50 text-slate-900 selection:bg-rose-600 selection:text-white">
           <Navbar />
           <Routes>
