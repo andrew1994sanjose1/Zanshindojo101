@@ -83,7 +83,7 @@ export function LandingPage() {
         </div>
       </section>
 
-      {/* 2. HISTORY SECTION */}
+      {/* 2. HISTORY SECTION - Added id="history" */}
       <section id="history" className="py-32 bg-white border-y border-slate-100 overflow-hidden relative">
         <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-24 items-center text-left">
           <motion.div 
@@ -124,8 +124,8 @@ export function LandingPage() {
         </div>
       </section>
 
-      {/* 3. SCHEDULE SECTION */}
-      <section id="schedule" className="py-24 bg-white border-b border-slate-100">
+      {/* 3. SCHEDULE SECTION - Changed id to "schedules" to match Navbar */}
+      <section id="schedules" className="py-24 bg-white border-b border-slate-100">
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-6 text-left">
             <div className="max-w-xl">
@@ -162,8 +162,8 @@ export function LandingPage() {
         </div>
       </section>
 
-      {/* 4. INSTRUCTORS SECTION */}
-      <section id="instructors" className="py-32 bg-slate-50">
+      {/* 4. INSTRUCTORS SECTION - Changed id to "trainers" to match Navbar */}
+      <section id="trainers" className="py-32 bg-slate-50">
         <div className="max-w-7xl mx-auto px-6 text-center">
            <h2 className="text-4xl font-black text-slate-900 uppercase tracking-tight mb-20">Master Instructors</h2>
            <div className="grid md:grid-cols-3 gap-12">
