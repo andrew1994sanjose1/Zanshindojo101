@@ -9,7 +9,7 @@ export function LandingPage() {
   return (
     <div className="pt-20 font-sans">
       {/* 1. HERO SECTION */}
-      <section className="relative min-h-[90vh] flex items-center px-6 md:px-24 overflow-hidden bg-slate-50">
+      <section id="home" className="relative min-h-[90vh] flex items-center px-6 md:px-24 overflow-hidden bg-slate-50">
         <div className="absolute inset-0 z-0">
           <img 
             src={bannerImg}
