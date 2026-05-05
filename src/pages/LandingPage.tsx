@@ -328,7 +328,7 @@ export function LandingPage() {
           <div className="col-span-2">
             <div className="flex items-center gap-3 mb-8">
               <div className="w-8 h-8 bg-rose-600 rounded-lg" />
-              <span className="text-2xl font-black tracking-tighter uppercase">Central Park Taekwondo Academy</span>
+              <span className="text-2xl font-black tracking-tighter uppercase">Taekwondo School</span>
             </div>
             <p className="text-slate-500 max-w-sm mb-8 font-medium leading-relaxed">
               Preserving traditional Japanese martial arts through digital excellence. Join our global dojo today and master your empty hand techniques.
