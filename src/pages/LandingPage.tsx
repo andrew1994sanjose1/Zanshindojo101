@@ -1,33 +1,11 @@
 import { motion } from 'motion/react';
-import React, { useState } from 'react';
-import { useAuth } from '../App';
-import { addDoc, collection } from 'firebase/firestore';
-import { db } from '../lib/firebase';
+import React from 'react';
 import bannerImg from '../assets/banner.jpg';
-import { Play, Shield, Target, ArrowRight, Clock, MapPin } from 'lucide-react';
+import { Clock, MapPin, ArrowRight } from 'lucide-react';
 import karateKidImg from '../assets/karatekid.png';
 import kid1Img from '../assets/kid1.png';
 
 export function LandingPage() {
-  const { signIn } = useAuth();
-  const [trialForm, setTrialForm] = useState({ name: '', email: '', phone: '', preferredDate: '' });
-  const [formStatus, setFormStatus] = useState<null | 'success' | 'error'>(null);
-
-  const handleTrialSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    try {
-      await addDoc(collection(db, 'trials'), {
-        ...trialForm,
-        status: 'pending',
-        createdAt: new Date().toISOString()
-      });
-      setFormStatus('success');
-      setTrialForm({ name: '', email: '', phone: '', preferredDate: '' });
-    } catch (err) {
-      setFormStatus('error');
-    }
-  };
-
   return (
     <div className="pt-20 font-sans">
       {/* 1. HERO SECTION */}
@@ -105,7 +83,7 @@ export function LandingPage() {
         </div>
       </section>
 
-      {/* 2. HISTORY SECTION - Updated to Single Image */}
+      {/* 2. HISTORY SECTION */}
       <section id="history" className="py-32 bg-white border-y border-slate-100 overflow-hidden relative">
         <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-24 items-center text-left">
           <motion.div 
@@ -135,10 +113,7 @@ export function LandingPage() {
 
           <div className="relative flex justify-center items-center">
             <div className="relative group">
-              {/* Background Decor */}
               <div className="absolute -inset-4 bg-slate-100 rounded-[4rem] scale-95 group-hover:scale-100 transition-transform duration-500"></div>
-              
-              {/* Ang nag-iisang picture: kid1.png */}
               <img 
                 src={kid1Img} 
                 className="relative z-10 rounded-[3rem] shadow-2xl w-full max-w-lg object-cover border-[12px] border-white transition-transform duration-500 group-hover:-rotate-2" 
@@ -199,23 +174,7 @@ export function LandingPage() {
         </div>
       </section>
 
-      {/* 5. TRIAL FORM SECTION */}
-      <section id="trials" className="py-20 px-6 bg-white">
-        <div className="max-w-4xl mx-auto grid md:grid-cols-2 gap-12 items-center bg-slate-900 rounded-[3rem] p-8 md:p-16 text-white shadow-3xl text-left">
-          <div>
-            <h2 className="text-4xl font-black uppercase leading-none mb-4">Start your 1-week <span className="text-rose-500">Free</span> Trial.</h2>
-            <p className="text-slate-400 font-medium">Limited slots available for this month's intake. Reserve your spot today.</p>
-          </div>
-          <form onSubmit={handleTrialSubmit} className="space-y-4">
-            <input required type="text" placeholder="Your Name" value={trialForm.name} onChange={(e) => setTrialForm({...trialForm, name: e.target.value})} className="w-full bg-white/10 border border-white/20 p-4 rounded-xl outline-none focus:border-rose-500 transition-all text-white" />
-            <input required type="email" placeholder="Email Address" value={trialForm.email} onChange={(e) => setTrialForm({...trialForm, email: e.target.value})} className="w-full bg-white/10 border border-white/20 p-4 rounded-xl outline-none focus:border-rose-500 transition-all text-white" />
-            <button className="w-full bg-rose-600 text-white p-4 rounded-xl font-black uppercase tracking-widest hover:bg-rose-700 transition-all cursor-pointer">Get Started</button>
-            {formStatus === 'success' && <p className="text-green-400 text-xs font-bold text-center">Success! We'll call you.</p>}
-          </form>
-        </div>
-      </section>
-
-      {/* 6. FOOTER */}
+      {/* 5. FOOTER */}
       <footer className="py-24 px-6 md:px-24 bg-white border-t border-slate-100 text-slate-900 text-left">
         <div className="max-w-7xl mx-auto grid md:grid-cols-4 gap-12">
           <div className="col-span-2">
