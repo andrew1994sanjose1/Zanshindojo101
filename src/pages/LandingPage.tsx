@@ -167,7 +167,7 @@ export function LandingPage() {
         <div className="max-w-7xl mx-auto px-6 text-center">
            <h2 className="text-4xl font-black text-slate-900 uppercase tracking-tight mb-20">Master Instructors</h2>
            <div className="grid md:grid-cols-3 gap-12">
-              <InstructorCard name="Sensei Ryu Tanaka" role="7th Dan Master" desc="Head instructor with specialized expertise in Shito-ryu Katas." img="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=1974&auto=format&fit=crop" />
+              <InstructorCard name="Sensei Ryu Tanaka" role="7th Dan Master" desc="Head instructor with specialized expertise in Shito-ryu Katas." img="https://res.cloudinary.com/djcbxippx/image/upload/f_auto,q_auto/Gemini_Generated_Image_f3h0omf3h0omf3h0_vivm5z=80&w=1974&auto=format&fit=crop" />
               <InstructorCard name="Sensei Hana Mori" role="5th Dan Specialist" desc="World championship medalist focusing on competitive Kumite." img="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=1974&auto=format&fit=crop" />
               <InstructorCard name="Sensei Kenji Sato" role="4th Dan Instructor" desc="Expert in youth development and physical coordination drills." img="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1974&auto=format&fit=crop" />
            </div>
