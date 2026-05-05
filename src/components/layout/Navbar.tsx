@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { useAuth } from '../../App';
 import { Menu, X, LogOut } from 'lucide-react';
 import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion'; // Binago ko to 'framer-motion' dahil baka hindi pa naka-install yung 'motion/react' sa system mo
+import { motion, AnimatePresence } from 'motion/react';
 import academyLogo from '../../assets/logoo.png';
 
 export function Navbar() {
@@ -14,7 +14,9 @@ export function Navbar() {
       
       {/* LOGO + TITLE */}
       <Link to="/" className="flex items-center gap-4 group">
+        {/* 🔥 mas pinalaking logo */}
         <img src={academyLogo} alt="Logo" className="h-12 md:h-14 w-auto" />
+
         <span className="text-xl md:text-2xl font-black tracking-tighter text-slate-900 uppercase leading-tight">
          Taekwondo Academy
         </span>
@@ -22,30 +24,24 @@ export function Navbar() {
 
       {/* Desktop Nav */}
       <div className="hidden md:flex items-center gap-8 text-sm font-semibold text-slate-500 uppercase tracking-widest">
-        <Link to="/" className="text-black hover:text-rose-600 transition-colors">Home</Link>
-        
-        {/* Anchor Links */}
-        <a href="#legacy" className="text-black hover:text-rose-600 transition-colors">History</a>
-        <a href="#schedules" className="text-black hover:text-rose-600 transition-colors">Schedule</a>
-        <a href="#instructors" className="text-black hover:text-rose-600 transition-colors">Instructors</a>
-        
-        <Link to="/trials" className="text-black hover:text-rose-600 transition-colors">Trials</Link>
+        <Link to="/" className="text-black">Home</Link>
+        <Link to="/trials" className="text-black">Trials</Link>
 
         {user ? (
-          <div className="flex items-center gap-6">
+          <>
             <Link to="/dashboard" className="hover:text-rose-600 transition-colors">Portal</Link>
 
             {(userData?.role === 'staff' || userData?.role === 'admin') && (
               <Link to="/admin" className="text-slate-900 hover:text-rose-600">Admin</Link>
             )}
 
-            <button onClick={() => logout()} className="flex items-center gap-2 hover:text-rose-600 transition-colors cursor-pointer outline-none">
+            <button onClick={logout} className="flex items-center gap-2 hover:text-rose-600 transition-colors cursor-pointer">
               <LogOut size={16} />
               Sign Out
             </button>
-          </div>
+          </>
         ) : (
-          <button onClick={() => signIn()} className="px-6 py-2.5 bg-slate-900 text-white rounded-full text-sm font-bold hover:bg-slate-800 transition-colors shadow-lg shadow-slate-200 cursor-pointer">
+          <button onClick={signIn} disabled className="px-6 py-2.5 bg-slate-900 text-white rounded-full text-sm font-bold hover:bg-slate-800 transition-colors shadow-lg shadow-slate-200 cursor-pointer">
             Sign In
           </button>
         )}
@@ -66,11 +62,6 @@ export function Navbar() {
             className="absolute top-20 left-0 right-0 bg-white border-b border-slate-100 p-6 flex flex-col gap-6 md:hidden shadow-xl"
           >
             <Link to="/" onClick={() => setIsOpen(false)} className="text-sm font-bold uppercase tracking-widest text-slate-600 hover:text-rose-600">Home</Link>
-            
-            <a href="#legacy" onClick={() => setIsOpen(false)} className="text-sm font-bold uppercase tracking-widest text-slate-600 hover:text-rose-600">History</a>
-            <a href="#schedules" onClick={() => setIsOpen(false)} className="text-sm font-bold uppercase tracking-widest text-slate-600 hover:text-rose-600">Schedule</a>
-            <a href="#instructors" onClick={() => setIsOpen(false)} className="text-sm font-bold uppercase tracking-widest text-slate-600 hover:text-rose-600">Instructors</a>
-            
             <Link to="/trials" onClick={() => setIsOpen(false)} className="text-sm font-bold uppercase tracking-widest text-rose-600">Trials</Link>
 
             {user ? (
@@ -81,7 +72,7 @@ export function Navbar() {
                 </button>
               </>
             ) : (
-              <button onClick={() => { signIn(); setIsOpen(false); }} className="bg-slate-900 text-white px-6 py-3 rounded-full font-bold tracking-widest shadow-lg shadow-slate-200">
+              <button onClick={() => { signIn(); setIsOpen(false); }} disabled className="bg-slate-100 text-slate-400 px-6 py-3 rounded-full font-bold tracking-widest opacity-60 cursor-not-allowed">
                 Sign In
               </button>
             )}
