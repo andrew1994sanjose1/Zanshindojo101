@@ -7,6 +7,7 @@ import bannerImg from '../assets/banner.jpg';
 import { Play, Shield, Target, ArrowRight, Clock, MapPin } from 'lucide-react';
 import karateKidImg from '../assets/karatekid.png';
 import kid1Img from '../assets/kid1.png';
+
 export function LandingPage() {
   const { signIn } = useAuth();
   const [trialForm, setTrialForm] = useState({ name: '', email: '', phone: '', preferredDate: '' });
@@ -104,7 +105,7 @@ export function LandingPage() {
         </div>
       </section>
 
-      {/* 2. HISTORY SECTION */}
+      {/* 2. HISTORY SECTION - Updated to Single Image */}
       <section id="history" className="py-32 bg-white border-y border-slate-100 overflow-hidden relative">
         <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-24 items-center text-left">
           <motion.div 
@@ -131,14 +132,19 @@ export function LandingPage() {
                </div>
             </div>
           </motion.div>
-          <div className="grid grid-cols-2 gap-4">
-             <div className="space-y-4">
-                <img src="https://images.unsplash.com/photo-1549413204-637dc4a36224?q=80&w=2074&auto=format&fit=crop" className="rounded-3xl shadow-xl" alt="Training" />
-                <img src="https://images.unsplash.com/photo-1518331647614-7a1f04cd34cf?q=80&w=2069&auto=format&fit=crop" className="rounded-3xl shadow-xl" alt="Atmosphere" />
-             </div>
-             <div className="pt-12">
-                <img src="https://images.unsplash.com/photo-1555597673-b21d5c935865?q=80&w=2072&auto=format&fit=crop" className="rounded-3xl shadow-xl h-full object-cover" alt="Sensei" />
-             </div>
+
+          <div className="relative flex justify-center items-center">
+            <div className="relative group">
+              {/* Background Decor */}
+              <div className="absolute -inset-4 bg-slate-100 rounded-[4rem] scale-95 group-hover:scale-100 transition-transform duration-500"></div>
+              
+              {/* Ang nag-iisang picture: kid1.png */}
+              <img 
+                src={kid1Img} 
+                className="relative z-10 rounded-[3rem] shadow-2xl w-full max-w-lg object-cover border-[12px] border-white transition-transform duration-500 group-hover:-rotate-2" 
+                alt="Kid Karate Training" 
+              />
+            </div>
           </div>
         </div>
       </section>
