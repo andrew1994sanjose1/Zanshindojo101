@@ -50,7 +50,7 @@ export function LandingPage() {
               transition={{ duration: 0.8, delay: 0.4 }}
               className="text-lg text-slate-600 leading-relaxed max-w-md font-medium text-left"
             >
-              Join the most advanced training center in Baliwag. Ancient tradition meets modern discipline.
+              Join the most advanced training center in United State. Ancient tradition meets modern discipline.
             </motion.p>
 
             <motion.div
@@ -65,7 +65,7 @@ export function LandingPage() {
                 Members Portal <ArrowRight size={20} />
               </button>
               <div className="flex items-center gap-2 text-slate-400 font-bold uppercase text-[10px] tracking-widest">
-                <MapPin size={14} className="text-rose-600" /> Baliwag, Bulacan
+                <MapPin size={14} className="text-rose-600" /> United State
               </div>
             </motion.div>
           </div>
