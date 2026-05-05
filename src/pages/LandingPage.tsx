@@ -1,7 +1,6 @@
 import { motion } from 'motion/react';
 import React from 'react';
 import { useAuth } from '../App';
-import { Play, Shield, Target, Users, ArrowRight, Calendar, Info } from 'lucide-react';
 import { useState } from 'react';
 import { addDoc, collection } from 'firebase/firestore';
 import { db, handleFirestoreError } from '../lib/firebase';
