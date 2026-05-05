@@ -75,7 +75,7 @@ export function LandingPage() {
               className="flex flex-col sm:flex-row items-center gap-4 mt-4"
             >
               <button 
-                onClick={signIn}            
+                disabled            
                 className="w-full sm:w-auto px-8 py-4 bg-black text-white rounded-2xl text-lg font-bold shadow-xl shadow-rose-200 hover:bg-black hover:scale-105 transition-all flex items-center justify-center gap-3 cursor-pointer"
               >
                 Member Login <ArrowRight size={20} />
