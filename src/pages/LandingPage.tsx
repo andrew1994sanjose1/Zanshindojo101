@@ -6,6 +6,7 @@ import { db } from '../lib/firebase';
 import bannerImg from '../assets/banner.jpg';
 import { Play, Shield, Target, ArrowRight, Clock, MapPin } from 'lucide-react';
 import karateKidImg from '../assets/karatekid.png';
+
 export function LandingPage() {
   const { signIn } = useAuth();
   const [trialForm, setTrialForm] = useState({ name: '', email: '', phone: '', preferredDate: '' });
@@ -80,7 +81,6 @@ export function LandingPage() {
               className="flex flex-col sm:flex-row items-center gap-4 mt-4"
             >
               <button 
-                disabled
                 className="w-full sm:w-auto px-10 py-5 bg-black text-white rounded-2xl text-lg font-bold shadow-2xl hover:scale-105 transition-all flex items-center justify-center gap-3 cursor-pointer"
               >
                 Enroll Now <ArrowRight size={20} />
@@ -93,7 +93,7 @@ export function LandingPage() {
 
           <div className="md:col-span-6 hidden md:block relative">
              <div className="relative z-10 rounded-[3rem] overflow-hidden border-[12px] border-white shadow-2xl rotate-2 hover:rotate-0 transition-transform duration-500">
-                <img src="https://images.unsplash.com/photo-1552072092-7f9b8d63efcb?q=80&w=2070&auto=format&fit=crop" alt="Training" />
+                <img src={karateKidImg} alt="Training" className="w-full h-full object-cover" />
              </div>
              <div className="absolute -bottom-6 -left-6 z-20 bg-white p-6 rounded-3xl shadow-2xl border border-slate-50 max-w-[200px]">
                 <p className="text-xs font-black uppercase text-slate-400 mb-2">Next Session</p>
@@ -143,7 +143,7 @@ export function LandingPage() {
         </div>
       </section>
 
-      {/* 3. SCHEDULE SECTION (GITNA) */}
+      {/* 3. SCHEDULE SECTION */}
       <section id="schedule" className="py-24 bg-white border-b border-slate-100">
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-6 text-left">
@@ -229,7 +229,6 @@ export function LandingPage() {
   );
 }
 
-// Helper Components
 function ScheduleRow({ type, mw, tf, sat }: { type: string, mw: string, tf: string, sat: string }) {
   return (
     <tr className="group hover:bg-slate-50 transition-colors">
