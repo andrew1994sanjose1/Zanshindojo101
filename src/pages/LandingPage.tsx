@@ -186,7 +186,7 @@ export function LandingPage() {
           </div>
           <div>
             <h4 className="text-xs uppercase tracking-widest font-black mb-6 text-left">Location</h4>
-            <p className="text-slate-500 text-sm font-bold">Baliwag, Bulacan</p>
+            <p className="text-slate-500 text-sm font-bold">United State</p>
           </div>
         </div>
       </footer>
