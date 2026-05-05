@@ -62,7 +62,7 @@ export function LandingPage() {
               <button 
                 className="w-full sm:w-auto px-10 py-5 bg-black text-white rounded-2xl text-lg font-bold shadow-2xl hover:scale-105 transition-all flex items-center justify-center gap-3 cursor-pointer"
               >
-                Enroll Now <ArrowRight size={20} />
+                Members Portal <ArrowRight size={20} />
               </button>
               <div className="flex items-center gap-2 text-slate-400 font-bold uppercase text-[10px] tracking-widest">
                 <MapPin size={14} className="text-rose-600" /> Baliwag, Bulacan
