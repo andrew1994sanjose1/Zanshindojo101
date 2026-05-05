@@ -79,8 +79,8 @@ export default function App() {
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-slate-50 text-slate-900 font-mono">
-        <div className="animate-pulse tracking-widest text-2xl font-black text-rose-600">
-          CENTRAL PARK TAEKWONDO ACADEMY.
+        <div className="animate-pulse tracking-widest text-2xl font-black text-black-600">
+          TAEKWONDO ACADEMY.
         </div>
       </div>
     );
