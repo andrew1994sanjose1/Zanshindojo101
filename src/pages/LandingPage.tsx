@@ -6,6 +6,7 @@ import { useState } from 'react';
 import { addDoc, collection } from 'firebase/firestore';
 import { db, handleFirestoreError } from '../lib/firebase';
 import bannerImg from '../assets/banner.jpg';
+import { Play, Shield, Target, Users, ArrowRight, Calendar, Info, Clock } from 'lucide-react'; // <--- Dagdag si Clock
 export function LandingPage() {
   const { signIn } = useAuth();
   const [trialForm, setTrialForm] = useState({ name: '', email: '', phone: '', preferredDate: '' });
