@@ -29,7 +29,7 @@ export function Navbar() {
 
       {/* Desktop Nav */}
       <div className="hidden md:flex items-center gap-8 text-sm font-semibold text-slate-500 uppercase tracking-widest">
-       <a <Link to="/" className="text-black hover:text-rose-600 transition-colors">Home</Link>
+        <Link to="/" className="text-black hover:text-rose-600 transition-colors">Home</Link>
         
         {/* --- MGA BAGONG LINKS --- */}
         <a href="#history" className="text-black hover:text-rose-600 transition-colors">History</a>
